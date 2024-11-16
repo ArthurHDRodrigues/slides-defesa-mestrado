@@ -217,6 +217,7 @@
   \tableofcontents
 \end{frame}
 
+\iffalse
 % --------------------------------------------------- %
 %                      Presentation                   %
 % --------------------------------------------------- %
@@ -249,11 +250,11 @@
 Cada aresta possui um peso associado.
 \end{block}
 
-\begin{exampleblock}{Problema da floresta maximal de peso mínimo em grafos ponderados dinâmicos}
+\begin{exampleblock}{Problema de floresta maximal de peso mínimo em grafos ponderados planos dinâmicos}
 \begin{itemize}
 \item \MSFCreate($n$): devolve um grafo ponderado com $n$ vértices isolados;
-\item \MSFaddEdge($G$,$u$,$v$,$w$): adiciona a aresta~$uv$ com peso~$w$ em~$G$;
-\item \MSFdelEdge($G$,$u$,$v$): remove a aresta $uv$ de $G$; e
+\item \MSFaddEdge($G$, $u$, $v$, $w$): adiciona a aresta~$uv$ com peso~$w$ em~$G$;
+\item \MSFdelEdge($G$, $u$, $v$): remove a aresta $uv$ de $G$; e
 \item \MSFweight($G$): devolve o peso de uma MSF de $G$.
 \end{itemize}
 \end{exampleblock}
@@ -273,27 +274,11 @@ Grafos gerais,~$\O{\lg^2 n}$ amortizado.
 Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \end{block}
 \end{frame}
+\fi
 
-\begin{frame}{Resultados conhecidos}
-\begin{block}{Kapron et al. (2013)~\cite{bruceM}}
-    $\O{\lg^5 n}$ no pior dos casos, mas que pode haver falso positivo na consulta; 
-\end{block}
-\begin{block}{Chen et al. (2022)~\cite{QC22}}
-    Apresenta bom desempenho prático, mas...
-    \begin{itemize}
-        \item os autores não apresentam análise de complexidade;
-        \item não compara com a solução de Holm et al.~\cite{poly_log} ou Kapron et al.~\cite{bruceM}.
-    \end{itemize}
-\end{block}
-\pause
-\begin{block}{Implementações conhecidas de Holm et al.}
-\begin{itemize}
-    \item Gabriel Russo~\cite{russo}, em C++;
-    \item Raj Iyer, David Karger, Hariharan Rahul e Mikkel Thorup~\cite{EmpiricalStudy2002} em C.
-\end{itemize}
-\end{block}
-\end{frame}
-
+% --------------------------------------------------- %
+%      Conexidade em florestas dinâmicas              %
+% --------------------------------------------------- %
 \section{Conexidade em florestas dinâmicas}
 \subsection{Definição}
 \begin{frame}{Conexidade em florestas dinâmicas}
@@ -311,12 +296,15 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \subsection{Euler Tour Trees}
 
 \begin{frame}{Sequência Euleriana}
-\begin{center}
-\begin{figure}
-\input{fig/exemploSeqEulerVermelha.tex}
+\begin{figure}[htb]
+\centering
+\scalebox{.9}{
+\input{fig/exemploSeqEuler.tex}
 \input{fig/exemploSeqEulerTransformada.tex}
+	}
 \end{figure}
-    {\large 11~12~22~21~11~{\red 14}~44~45~55~54~44~40~00~04~44~43~33~34~44~{\red 41~11}}
+\begin{center}
+{\large 30~00~04~41~12~22~21~11~14~44~45~55~54~40~03~33}
 \end{center}
 \end{frame}
 
@@ -327,7 +315,7 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \input{fig/SEQ-INDICES.tex}}
 \end{figure}
 \begin{center}
-{\large 11~12~22~21~11~14~44~45~55~54~44~40~00~04~44~43~33~34~44~41~11}
+{\large 30~00~04~41~12~22~21~11~14~44~45~55~54~40~03~33}
 
 \end{center}
 \end{frame}
@@ -453,7 +441,11 @@ Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
 \end{figure}
 \end{frame}
 
+% --------------------------------------------------- %
+%      Conexidade em grafos dinâmicos              %
+% --------------------------------------------------- %
 \section{Conexidade em grafos dinâmicos}
+\subsection{Definição}
 \begin{frame}{Conexidade em grafos dinâmicos}
 \begin{exampleblock}{Conexidade em grafos dinâmicos}
 \begin{itemize}
@@ -584,7 +576,10 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \end{frame}
 
 
-\section{Floresta maximal de peso mínimo em grafos planos}
+% --------------------------------------------------------------------- %
+% Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos %
+% --------------------------------------------------------------------- %
+\section{Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos}
 
 \begin{frame}{Floresta maximal de peso mínimo}
 \begin{exampleblock}{O problema da floresta maximal de peso mínimo em grafos planos}
@@ -595,30 +590,32 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \item \MSFweight($G$): devolve o peso de uma MSF de $G$.
 \end{itemize}
 \end{exampleblock}
+\end{frame}
 
+\subsection{Definição do problema}
+\begin{frame}{Floresta maximal de peso mínimo}
+O problema da floresta maximal de peso mínimo (MSF) em grafos dinâmicos planos ponderados consiste na busca por uma implementação tão eficiente quanto possível para a seguinte biblioteca:
+
+\begin{itemize}
+\item \MSFCreate($n$): Cria e devolve um grafo plano ponderado~$G$ com $n$ vértices isolados.
+\item \MSFaddEdge($G$, $e$, $u$, $e_u$, $v$, $e_v$, $w$): Insere em~$G$ uma nova aresta~$e$ com peso~$w$ ligando os vértices~$u$ e~$v$. A nova aresta~$e$ é sucessora das arestas~$e_u$ e~$e_v$ nas ordenações cíclicas de~$u$ e~$v$, respectivamente.
+\item \MSFdelEdge($G$, $e$): Remove a aresta~$e$ de~$G$.
+\item \MSFupdate($G$, $e$, $w$): Altera o peso da aresta~$e$ de~$G$ para o valor~$w$.
+\item \MSFweight($G$): Devolve o peso de uma MSF de $G$.
+\end{itemize}
 \end{frame}
 
 
-\begin{frame}{Caso decremental}
-\begin{exampleblock}{O caso decremental do problema MSF em grafos ponderados dinâmicos}
-\begin{itemize}
-\item \MSFCreate($H$): recebe um grafo~$H$ e devolve um grafo dinâmico e uma MSF dele;
-\item \MSFdelEdge($G$,$u$,$v$): remove $uv$ de~$G$; e
-\item \MSFweight($G$): devolve o peso de uma MSF de $G$.
-\end{itemize}
-\end{exampleblock}
-\begin{exampleblock}{Adaptação para o caso decremental}
-\begin{itemize}
-    \item $F_{\lceil \log n \rceil}$ deve ser de peso mínimo;
-    \item Em \dymGraphReplace{}, percorrer as arestas de nível $i$ em ordem crescente de peso;
-\end{itemize}
-\end{exampleblock}
-\end{frame}
+\subsection{Árvores dinâmicas planas}
+\subsection{Resolvendo MSF com ADPs}
+\subsection{Implementação de árvores dinâmicas planas}
 
 
-
-
-
+\section{O limitante inferior de~$\Omega(\lg n)$}
+\subsection{O modelo de computação cell-probe}
+\subsection{Verificação de soma parcial em~$S_k$}
+\subsection[Redução do VSP$S_k$ para conexidade em grafos dinâmicos]{Redução do problema VSP$S_k$ para conexidade em grafos dinâmicos}
+\subsection{Limitante inferior para conexidade em grafos dinâmicos}
 
 
 \section{Bibliografia}
