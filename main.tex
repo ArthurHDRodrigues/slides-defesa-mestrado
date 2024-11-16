@@ -14,7 +14,7 @@
 \newcommand{\red}{\color{red}}
 \newcommand{\green}{\color{green}}
 \newcommand{\TODO}[1]{{{\red #1}}}
-\newcommand{\var}[1]{\text{#1}} %define estilo de nomes de variaveis
+\newcommand{\var}[1]{$#1$} %define estilo de nomes de variaveis
 \newcommand{\defi}[1]{\textbf{#1}} % defini estilo ao definir algo no texto
 \def\Nil{\text{NIL}}
 
@@ -47,11 +47,23 @@
 \algrenewcommand\algorithmicthen{\textbf{então}}
 \algrenewcommand\algorithmicreturn{\textbf{retorne}}
 
+
+
+\newcommand{\AlgoName}[1]{\text{\scshape #1}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comandos de notação assintotica   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\O}[1]{\text{O}(#1)}
 \newcommand{\OTheta}[1]{\Theta(#1)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    Nomes de váriaveis      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\varname}[1]{\textit{#1}}
+\newcommand{\altvarname}[1]{$#1$}
+\newcommand{\node}{\mathit{n\acute{o}}}
+%\newcommand{\var}{\mathit{var}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Métodos de Grafos      %
@@ -195,8 +207,8 @@
 %                    Title + Schedule                 %
 % --------------------------------------------------- %
 
-\begin{document}
 
+\begin{document}
 \begin{frame}
   \titlepage
 \end{frame}
@@ -214,19 +226,19 @@
 \begin{frame}{Problema de conexidade dinâmicas}
 \begin{block}{Contexto}
 \begin{itemize}
-    \item \var{G}: grafo;
-    \item \var{n}: número de vértices em~\var{G};
-    \item \var{F}: floresta;
-    \item \var{u},\var{v}: vértices.
+    \item $G$: grafo;
+    \item $n$: número de vértices em~$G$;
+    \item $F$: floresta;
+    \item $u$,$v$: vértices.
     \end{itemize}
 \end{block}
 
 \begin{exampleblock}{Problema de conexidade dinâmicas}
 \begin{itemize}
-\item \dymGraphCreate(\var{n}): retorna um grafo com \var{n} vértices isolados;
-\item \dymGraphAddEdge(\var{G},\var{u},\var{v}): adiciona \var{uv} a~\var{G};
-\item \dymGraphDelEdge(\var{G},\var{u},\var{v}): remove \var{uv} de \var{G}; e
-\item \dymGraphQuery(\var{G},\var{u},\var{v}): retorna verdadeiro se \var{u} e~\var{v} estão na mesma componente conexa de~\var{G} e falso, caso contrário.
+\item \dymGraphCreate($n$): retorna um grafo dinâmico com $n$ vértices isolados;
+\item \dymGraphAddEdge($G$, $u$, $v$): adiciona aresta $uv$ a~$G$;
+\item \dymGraphDelEdge($G$, $u$, $v$): remove $uv$ de $G$; e
+\item \dymGraphQuery($G$, $u$, $v$): retorna verdadeiro se $u$ e~$v$ estão na mesma componente conexa de~$G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
 \end{frame}
@@ -239,10 +251,10 @@ Cada aresta possui um peso associado.
 
 \begin{exampleblock}{Problema da floresta maximal de peso mínimo em grafos ponderados dinâmicos}
 \begin{itemize}
-\item \MSFCreate(\var{n}): devolve um grafo ponderado com \var{n} vértices isolados;
-\item \MSFaddEdge(\var{G},\var{u},\var{v},\var{w}): adiciona a aresta~\var{uv} com peso~\var{w} em~\var{G};
-\item \MSFdelEdge(\var{G},\var{u},\var{v}): remove a aresta \var{uv} de \var{G}; e
-\item \MSFweight(\var{G}): devolve o peso de uma MSF de \var{G}.
+\item \MSFCreate($n$): devolve um grafo ponderado com $n$ vértices isolados;
+\item \MSFaddEdge($G$,$u$,$v$,$w$): adiciona a aresta~$uv$ com peso~$w$ em~$G$;
+\item \MSFdelEdge($G$,$u$,$v$): remove a aresta $uv$ de $G$; e
+\item \MSFweight($G$): devolve o peso de uma MSF de $G$.
 \end{itemize}
 \end{exampleblock}
 \end{frame}
@@ -250,21 +262,21 @@ Cada aresta possui um peso associado.
 \subsection{Resultados conhecidos}
 \begin{frame}{Resultados conhecidos}
 \begin{alertblock}{Limitante inferior (Patrascu e Demaine)~\cite{lowerBoundPatrascu}, 2006}
-Todo algoritmo que resolve os problemas de conexidade dinâmica e de MSF dinâmica possuem consumo de tempo~$\Omega(\lg \var{n})$.
+Todo algoritmo que resolve os problemas de conexidade dinâmica e de MSF dinâmica possuem consumo de tempo~$\Omega(\lg n)$.
 \end{alertblock}
 \begin{block}{Conexidade dinâmicas~(Holm et al.~\cite{poly_log}, 2001)}
-Para árvores,~$\O{\lg \var{n}}$;\\
-Grafos gerais,~$\O{\lg^2 \var{n}}$ amortizado.
+Para árvores,~$\O{\lg n}$;\\
+Grafos gerais,~$\O{\lg^2 n}$ amortizado.
 \end{block}
 
 \begin{block}{MSF~(Holm et al.~\cite{poly_log}, 2001)}
-Para grafos gerais, amortizado~$\O{\lg^4 \var{n}}$.
+Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \end{block}
 \end{frame}
 
 \begin{frame}{Resultados conhecidos}
 \begin{block}{Kapron et al. (2013)~\cite{bruceM}}
-    $\O{\lg^5 \var{n}}$ no pior dos casos, mas que pode haver falso positivo na consulta; 
+    $\O{\lg^5 n}$ no pior dos casos, mas que pode haver falso positivo na consulta; 
 \end{block}
 \begin{block}{Chen et al. (2022)~\cite{QC22}}
     Apresenta bom desempenho prático, mas...
@@ -288,10 +300,10 @@ Para grafos gerais, amortizado~$\O{\lg^4 \var{n}}$.
 
 \begin{exampleblock}{Problema de conexidade em florestas dinâmicas}
 \begin{itemize}
-\item \dymForestCreate(\var{n}): retorna uma floresta dinâmica com \var{n} vértices isolados;
-\item \dymForestAddEdge(\var{F},\var{u},\var{v}): adiciona \var{uv} a~\var{F};
-\item \dymForestDelEdge(\var{F},\var{u},\var{v}): remove \var{uv} de \var{F}; e
-\item \dymForestQuery(\var{F},\var{u},\var{v}): retorna verdadeiro se \var{u} e~\var{v} estão na mesma componente conexa de~\var{F} e falso, caso contrário.
+\item \dymForestCreate($n$): retorna uma floresta dinâmica com $n$ vértices isolados;
+\item \dymForestAddEdge($F$,$u$,$v$): adiciona $uv$ a~$F$;
+\item \dymForestDelEdge($F$,$u$,$v$): remove $uv$ de $F$; e
+\item \dymForestQuery($F$,$u$,$v$): retorna verdadeiro se $u$ e~$v$ estão na mesma componente conexa de~$F$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
 \end{frame}
@@ -309,7 +321,6 @@ Para grafos gerais, amortizado~$\O{\lg^4 \var{n}}$.
 \end{frame}
 
 \begin{frame}{Euler Tour Trees}
-
 \begin{figure}[htb]
 \centering
 \scalebox{.7}{
@@ -338,31 +349,32 @@ Para grafos gerais, amortizado~$\O{\lg^4 \var{n}}$.
 \begin{frame}{Biblioteca de Euler Tour Trees}
 \begin{exampleblock}{Biblioteca de Euler Tour Trees}
 \begin{itemize}
-\item  \treapCreate(\var{u},\var{v}): retorna uma ABB com um único nó com valor uv;
-\item \treapJoin(\var{T},\var{R}): junta as ABBs \var{T} e \var{R} concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
-\item \treapSplit(\var{T},\var{node}): corta~\var{T} em duas ABBs. A primeira contendo todos os nós anteriores a~\var{node} e a segunda os demais;
-\item \treapGetRoot(\var{x}): retorna a raiz da ABB que contém \var{x};
-\item \treapSearch(\var{T},\var{k}): retorna o nó com chave \var{k} da árvore \var{T};
-\item \treapOrder(\var{node}): retorna a chave de \var{node};
-\item \treapGetLast(\var{T}): retorna o nó de maior chave na árvore~\var{T}; e
-\item \treapGetSize(\var{T}): retorna o número de nós em \var{T}.
+\item  \treapCreate($u$,$v$): retorna uma ABB com um único nó com valor uv;
+\item \treapJoin($T$,$R$): junta as ABBs $T$ e $R$ concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
+\item \treapSplit($T$, $\node$): corta~$T$ em duas ABBs. A primeira contendo todos os nós anteriores a~$\node$ e a segunda os demais;
+\item \treapGetRoot($x$): retorna a raiz da ABB que contém $x$;
+\item \treapSearch($T$,$k$): retorna o nó com chave $k$ da árvore $T$;
+\item \treapOrder($\node$): retorna a chave de $\node$;
+\item \treapGetLast($T$): retorna o nó de maior chave na árvore~$T$; e
+\item \treapGetSize($T$): retorna o número de nós em $T$.
 \end{itemize}
 \end{exampleblock}
 \boxpurple{\centering  \treapCreate{} e \treapGetSize{} :~$\O{1}$.\\ As demais operações :~$\O{\lg n}$.}
 \end{frame}
 
-
 \begin{frame}{Tabela de símbolos}
 \boxblue{
 \centering
-Associa \var{(u,v)} $\rightarrow$ \var{uv}.
+Associa $(u,v) \rightarrow uv$.
 }
 \begin{exampleblock}{Biblioteca de tabela de símbolos}
-    \begin{itemize}
-    \item \hashCreate(\var{n}): retorna uma tabela hash para armazenar valores associados a valores em \var{n}$\times$\var{n};
-    \item \hashAdd(\dymForestHash{},\var{u},\var{v},\var{uv}): associa o par \var{(u,v)} à~\var{uv} em~\dymForestHash{};
-    \item \hashDel(\dymForestHash{},\var{u},\var{v}): remove o conteúdo associado ao par~\var{(u,v)} de~\dymForestHash{};
-    \item \hashGet(\dymForestHash{},\var{u},\var{v}): retorna o valor associado ao par~\var{(u,v)} da tabela~\dymForestHash{}.
+\begin{itemize}
+    \item $F \gets \hashCreate(n)$: cria e retorna um dicionário~$F$ para uma floresta dinâmica com~$n$ vértices;
+    \item $F[u,v] \gets uv$: insere o nó que contém $uv$, com chave $(u,v)$ e valor associado~$uv$ na tabela~$F$.
+    Se o par~$(u,v)$ já estiver presente no dicionário, então seu valor associado é substituído por~$uv$;
+    \item $F[u,v] \gets \Nil{}$: remove o nó associado a~$(u,v)$ e seu valor associado do dicionário~$F$;
+    \item $\var{} \gets F[u,v]$: atribui o valor associado à chave~$(u,v)$ à variável~\var;
+	Caso a chave~$(u,v)$ não esteja presente em~$F$, atribui~$\Nil$ a~$\var{} $.
 \end{itemize}
 \end{exampleblock}
 \boxpurple{
@@ -371,29 +383,12 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 }
 \end{frame}
 
-
-
 \begin{frame}{Implementação da interface de floresta dinâmica}
-
 \begin{algorithm}[H]
-\caption{\dymForestCreate(\var{n})}
+\caption{\dymForestCreate($n$)}
 \label{Algo:dymForestCreate}
 \begin{algorithmic}[1]
-\State \var{F}.\var{n} $\gets$ \var{n}
-\State \var{F}.\dymForestHash{} $\gets$ \hashCreate(\var{n})
-\For {\var{v} $\gets$ 1 até \var{n}}\label{Algo:dymForestCreate:for}
-\State \hashAdd(\var{F}.\dymForestHash{},\var{v},\var{v},\treapCreate(\var{v},\var{v}))
-\EndFor
-\State \Return \var{F}
-\end{algorithmic}
-\end{algorithm}
-\begin{algorithm}[H]
-\caption{\dymForestQuery(\var{F},\var{u},\var{v})}
-\label{Algo:dymForestQuery}
-\begin{algorithmic}[1]
-\State \var{uu} $\gets$ \hashGet(\var{F}.\dymForestHash,\var{u},\var{u})
-\State \var{vv} $\gets$ \hashGet(\var{F}.\dymForestHash,\var{v},\var{v})
-\State \Return \treapGetRoot(\var{uu}) = \treapGetRoot(\var{vv})
+	\State \TODO{AAAAAAA}
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
@@ -405,19 +400,11 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 
 \begin{frame}{Implementação da interface de floresta dinâmica}
 \begin{algorithm}[H]
-\caption{\dymForestAddEdge(\var{F},\var{u},\var{v})}
+\caption{\dymForestAddEdge($F$,$u$,$v$)}
 \label{Algo:dymForestAddEdge}
 \begin{algorithmic}[1]
-\State \ETmovetofront(\var{F},\var{u})
-\State \ETmovetofront(\var{F},\var{v})
-\State \var{U} $\gets$ \treapGetRoot(\hashGet(\var{F}.\dymForestHash,\var{u},\var{u}))
-\State \var{V} $\gets$ \treapGetRoot(\hashGet(\var{F}.\dymForestHash,\var{v},\var{v}))
-\State \var{uv} $\gets$ \treapCreate(\var{u},\var{v})
-\State \var{vu} $\gets$ \treapCreate(\var{v},\var{u})
-\State \var{uu} $\gets$ \treapCreate(\var{u},\var{u})
-\State \hashAdd(\var{F}.\dymForestHash{},\var{u},\var{v},\var{uv})
-\State \hashAdd(\var{F}.\dymForestHash{},\var{v},\var{u},\var{vu})
-\State \treapJoin(\treapJoin(\treapJoin(\treapJoin(\var{U},\var{uv}),\var{V}),\var{vu}),\var{uu})\end{algorithmic}
+\State \TODO{AAAAAAAAAAA}
+\end{algorithmic}
 \end{algorithm}
 \boxpurple{
 \centering
@@ -427,20 +414,10 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 
 \begin{frame}{Rotina auxiliar \ETmovetofront{}}
 \begin{algorithm}[H]
-\caption{\ETmovetofront(\var{F},\var{u})}
+\caption{\ETmovetofront($F$,$u$)}
 \label{Algo:ETmovetofront}
 \begin{algorithmic}[1]
-\State \var{uu} $\gets$ \hashGet(\var{F}.\dymForestHash,\var{u},\var{u})
-\State \var{T} $\gets$ \treapGetRoot(\var{uu})
-\State \var{vv} $\gets$ \treapSearch(\var{T},1)
-\If {\var{vv} $\neq$ \var{uu}} 
-\State \hashAdd(\var{F}.\dymForestHash{},\var{v},\var{v},\var{vv}) 
-\State \var{A}, \var{B} $\gets$ \treapSplit(\var{T}, \var{uu})
-\State \var{vv} $\gets$ \treapGetLast(\var{B})
-\State \var{B}, \var{C} $\gets$ \treapSplit(\var{T}, \var{vv})
-\State \var{uu} $\gets$ \treapCreate(\var{u},\var{u})
-\State \treapJoin(\treapJoin(\var{B},\var{A}),\var{uu})
-\EndIf
+\State \TODO{AAAAAAAAAAA}
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
@@ -451,28 +428,10 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 
 \begin{frame}{Implementação da interface de floresta dinâmica}
 \begin{algorithm}[H]
-\caption{\dymForestDelEdge(\var{F},\var{u},\var{v})}
+\caption{\dymForestDelEdge($F$, $u$, $v$)}
 \label{Algo:dymForestDelEdge}
 \begin{algorithmic}[1]
-\State \var{Kuv} $\gets$ \treapOrder(\hashGet(\var{F}.\dymForestHash{},\var{u},\var{v}))
-\State \var{Kvu} $\gets$ \treapOrder(\hashGet(\var{F}.\dymForestHash{},\var{v},\var{u})) 
-\If {\var{Kuv} $>$ \var{Kvu}}
-	\Comment{garante que \var{uv} aparece na sequência antes de \var{vu}}
-	\State \var{u} $\leftrightarrow$ \var{v}
-	\State \var{Kuv} $\leftrightarrow$ \var{Kvu}
-\EndIf
-\State \var{S} $\gets$ \treapGetRoot(\var{uv})
-\State \var{uu} $\gets$ \treapSearch(\var{S},\var{Kuv}-1)\Comment{obtém a ocorrência de \var{uu} que precede \var{uv}}
-\State \var{vv} $\gets$ \treapSearch(\var{S},\var{Kuv}+1)
-\State \var{A}, \var{B} $\gets$ \treapSplit(\var{S}, \var{uu})
-\State \var{B}, \var{C} $\gets$ \treapSplit(\var{B}, \var{vv})
-\State \var{C}, \var{D} $\gets$ \treapSplit(\var{B}, \var{vu})
-\State \var{uu} $\gets$ \treapSearch(\var{D},2)
-\State \var{D}, \var{E} $\gets$ \treapSplit(\var{D}, \var{uu})
-\State \hashAdd(\var{F}.\dymForestHash{},\var{u},\var{u},\var{uu})
-\State \hashDel(\var{F}.\dymForestHash{},\var{u},\var{v})
-\State \hashDel(\var{F}.\dymForestHash{},\var{v},\var{u})
-\State \treapJoin(\var{A},\var{E})
+\State \TODO{AAAAAAAAAAA}
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
@@ -486,7 +445,6 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \boxblue{
 \centering
 Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
-
 }
 \begin{figure}[htb]
 \centering
@@ -499,10 +457,10 @@ Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
 \begin{frame}{Conexidade em grafos dinâmicos}
 \begin{exampleblock}{Conexidade em grafos dinâmicos}
 \begin{itemize}
-\item \dymGraphCreate(\var{n}): cria um grafo dinâmico com \var{n} vértices isolados;
-\item \dymGraphAddEdge(\var{G},\var{u},\var{v}): adiciona a aresta \var{uv} ao grafo dinâmico \var{G};
-\item \dymGraphDelEdge(\var{G},\var{u},\var{v}): remove a aresta \var{uv} de \var{G}; e
-\item \dymGraphQuery(\var{G},\var{u},\var{v}): retorna verdadeiro se \var{u} e \var{v} estão na mesma componente conexa de \var{G} e falso, caso contrário.
+\item \dymGraphCreate($n$): cria um grafo dinâmico com $n$ vértices isolados;
+\item \dymGraphAddEdge($G$,$u$,$v$): adiciona a aresta $uv$ ao grafo dinâmico $G$;
+\item \dymGraphDelEdge($G$,$u$,$v$): remove a aresta $uv$ de $G$; e
+\item \dymGraphQuery($G$,$u$,$v$): retorna verdadeiro se $u$ e $v$ estão na mesma componente conexa de $G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
 
@@ -511,21 +469,21 @@ Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
 \begin{frame}{Ideia inicial}
 \begin{block}{Manteremos}
 \begin{itemize}
-    \item floresta maximal dinâmica~\var{F} de~\var{G}; e
-    \item um grafo~\var{R} = $\var{G}-\var{F}$
+    \item floresta maximal dinâmica~$F$ de~$G$; e
+    \item um grafo~$R$ = $G-F$
 \end{itemize}
 \end{block}
 
 \begin{exampleblock}{Lista de adjacências}
 \begin{itemize}
-    \item \graphCreate(\var{n}): devolve a representação por listas de adjacências de um grafo com~\var{n} vértices isolados.
-    \item \graphAdd(\var{G},\var{u},\var{v}): adiciona \var{u} na lista de adjacências de \var{v} em \var{G} e vice-versa.
-    \item \graphDel(\var{G},\var{u},\var{v}): remove \var{u} da lista de adjacências de \var{v} em \var{G} e vice-versa.
+    \item \graphCreate($n$): devolve a representação por listas de adjacências de um grafo com~$n$ vértices isolados.
+    \item \graphAdd($G$,$u$,$v$): adiciona $u$ na lista de adjacências de $v$ em $G$ e vice-versa.
+    \item \graphDel($G$,$u$,$v$): remove $u$ da lista de adjacências de $v$ em $G$ e vice-versa.
 \end{itemize}
 \end{exampleblock}
 \boxpurple{
 \centering
-~~~~~~\graphCreate{} : $\O{\var{n}}$\\
+~~~~~~\graphCreate{} : $\O{n}$\\
 \graphAdd{}  : $\O{1}$\\
 \graphDel{}  : $\O{1}$\\
 }
@@ -534,21 +492,10 @@ Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
 
 \begin{frame}{Ideia inicial}
 \begin{algorithm}[H]
-\caption{\dymGraphQuery(\var{G},\var{u},\var{v})}
+\caption{\dymGraphQuery($G$, $u$, $v$)}
 \label{Algo:dymGraphQuery}
 \begin{algorithmic}[1]
-\State \Return \dymForestQuery(\var{G}.\var{F},\var{u},\var{v})
-\end{algorithmic}
-\end{algorithm}
-\begin{algorithm}[H]
-\caption{\dymGraphAddEdge(\var{G},\var{u},\var{v})}
-\label{Algo:dymGraphAddEdge}
-\begin{algorithmic}[1]
-\If {\dymForestQuery(\var{G}.\var{F},\var{u},\var{v})}
-\State \graphAdd(\var{G}.\var{R},\var{u},\var{v})
-\Else 
-\State \dymForestAddEdge(\var{G}.\var{F},\var{u},\var{v})
-\EndIf
+\State $i$ 
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
@@ -562,22 +509,22 @@ Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
 \begin{frame}{Remoção de arestas}
 \begin{block}{Estrutura de níveis}
 \begin{itemize}
-    \item Cada aresta possui um \defi{nível}, que é um inteiro entre~$1$ e $\lceil \log \var{n} \rceil$;
-    \item Arestas serão inseridas no nível~$\lceil \log \var{n} \rceil$;
+    \item Cada aresta possui um \defi{nível}, que é um inteiro entre~$1$ e $\lceil \log n \rceil$;
+    \item Arestas serão inseridas no nível~$\lceil \log n \rceil$;
     \item O nível de uma aresta pode diminuir, mas nunca aumentar. 
 \end{itemize}
 \end{block}
 \begin{block}{Estrutura}
-$\var{G}_\var{i}$: grafo com arestas de nível $\leqslant$ \var{i}. Para cada camada \var{i}, manteremos:
+$G_i$: grafo com arestas de nível $\leqslant i$. Para cada camada $i$, manteremos:
 \begin{itemize}
-    \item $\var{F}_\var{i}$: floresta maximal  de~$\var{G}_\var{i}$; e
-    \item $\var{R}_\var{i}$: arestas de nível~\var{i} $\notin \var{F}_\var{i}$.
+    \item $F_i$: floresta maximal  de~$G_i$; e
+    \item $R_i$: arestas de nível~$i \notin F_i$.
 \end{itemize}
 \end{block}
 \begin{block}{Invariantes}
 \begin{itemize}
-    \item $\var{F}_\var{i}\subseteq \var{F}_{\var{i}+1}$, para cada $ 1\leqslant \var{i} \leqslant \lceil \log \var{n} \rceil-1$ e que $\var{F}_\var{i}$ é uma floresta maximal de~$\var{G}_\var{i}$; e
-    \item Cada componente de $\var{F}_\var{i}$ possui menos do que $2^\var{i}$ arestas.
+    \item $F_i \subseteq F_{i+1}$, para cada $1\leqslant i \leqslant \lceil \log n \rceil-1$ e que $F_i$ é uma floresta maximal de~$G_i$; e
+    \item Cada componente de $F_i$ possui menos do que $2^i$ arestas.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -585,26 +532,26 @@ $\var{G}_\var{i}$: grafo com arestas de nível $\leqslant$ \var{i}. Para cada ca
 \begin{frame}{Implementações}
 \begin{exampleblock}{Adaptações}
 \centering
-$\var{G}.\var{F}\rightarrow\var{G}.\var{F}[\lceil \log \var{n} \rceil]$\\
-$\var{G}.\var{R}\rightarrow\var{G}.\var{R}[\lceil \log \var{n} \rceil]$
+$G.F\rightarrow G.F_{\lceil \log n \rceil}$\\
+$G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \end{exampleblock}
 \begin{algorithm}[H]
-\caption{\dymGraphDelEdge(\var{G},\var{u},\var{v})}
+\caption{\dymGraphDelEdge($G$, $u$, $v$)}
 \label{Algo:dymGraphDelEdge}
 \begin{algorithmic}[1]
-\If {\var{uv} $\in \var{G}.\var{F}[{\lceil \log \var{n} \rceil}]$}
-\For {\var{i} $\gets$ \var{uv}.\var{nível} até $\lceil \log \var{n} \rceil$}\label{linha2}
-\State \dymForestDelEdge(\var{G}.\var{F}[i],\var{u},\var{v}))
-\EndFor
-\State \dymGraphReplace(\var{G},\var{u},\var{v},\var{uv}.\var{nível})
+\If {$uv \in G.F_{\lceil \lg n \rceil}$}
+  \For {$i \gets uv.nível$ até $\lceil \lg n \rceil$}
+    \State \dymForestDelEdge($G$.$F$[i],$u$,$v$))
+  \EndFor
+  \State \dymGraphReplace($G$,$u$,$v$,$uv$.$nível$)
 \Else
-  \State \graphDel(\var{G}.\var{R}[\var{uv}.\var{nível}],\var{u},\var{v})
+  \State \graphDel($G$.$R$[$uv$.$nível$],$u$,$v$)
 \EndIf
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
 \centering
-\dymGraphDelEdge{}  : $\O{\lg^2 \var{n}}$ amortizado
+\dymGraphDelEdge{}  : $\O{\lg^2 n}$ amortizado.
 }
 \end{frame}
 
@@ -627,35 +574,11 @@ $\var{G}.\var{R}\rightarrow\var{G}.\var{R}[\lceil \log \var{n} \rceil]$
 
 
 \begin{frame}{A rotina \dymGraphReplace{}}
-
 \begin{algorithm}[H]
-\caption{\dymGraphReplace(\var{G},\var{u},\var{v},\var{nível})}
+\caption{\dymGraphReplace($G$,$u$,$v$,$nível$)}
 \label{Algo:dymGraphReplace}
 \begin{algorithmic}[1]
-\For {\var{i} $\gets$ \var{nível} até $\lceil \log \var{n} \rceil$}\label{Algo:dymGraphReplace:linha:primeira}
-\State $\var{T}_\var{v}$ $\gets$  \treapGetRoot(\hashGet(\var{G}.\var{F}[\var{i}].\dymForestHash,\var{v},\var{v}))
-\State $\var{T}_\var{u}$ $\gets$  \treapGetRoot(\hashGet(\var{G}.\var{F}[\var{i}].\dymForestHash,\var{u},\var{u}))
-\If {$\treapGetSize(\var{T}_\var{v}) < \treapGetSize(\var{T}_\var{u})$}\Comment{Garantimos que $|\var{T}_\var{v}|\geqslant |\var{T}_\var{u}|$}
-\State \var{u} $\leftrightarrow$ \var{v}
-\State $\var{T}_\var{u} \leftrightarrow \var{T}_\var{v}$
-\EndIf
-\For {\var{xy} em $\var{T}_\var{u}$ com \var{xy}.\var{nível} = \var{i}}\label{Algo:dymGraphReplace:linha:moveTu}\Comment{Move $\var{T}_\var{u}$ para o nível \var{i-1}}
-\State \var{xy}.\var{nível} $\gets$ \var{i} $-$ 1
-\State \dymForestAddEdge(\var{G}.\var{F}[\var{i}-1],\var{x},\var{y}) 
-\EndFor
-\For {\var{xy} em \var{G}.\var{R}[\var{i}] com \var{x} em $\var{T}_\var{u}$}\label{Algo:dymGraphReplace:linha:achaSub}\Comment{Procura substituta para \var{uv}}
-\State \graphDel(\var{G}.\var{R}[\var{i}],\var{x},\var{y})
-\If {\var{y} $\in \var{T}_\var{v}$}
-\For {\var{j} $\gets$ \var{i} até $\lceil \log \var{n} \rceil$}
-\State \dymForestAddEdge(\var{G}.\var{F}[\var{j}],\var{x},\var{y})
-\EndFor
-\Return
-\Else
-\State \var{xy}.\var{nível} $\gets$ \var{i} $-$ 1
-\State \graphAdd(\var{G}.\var{R}[\var{i} - 1],\var{x},\var{y})
-\EndIf
-\EndFor
-\EndFor\label{Algo:dymGraphReplace:linha:ultima}
+\State $i$
 \end{algorithmic}
 \end{algorithm}
 \end{frame}
@@ -666,10 +589,10 @@ $\var{G}.\var{R}\rightarrow\var{G}.\var{R}[\lceil \log \var{n} \rceil]$
 \begin{frame}{Floresta maximal de peso mínimo}
 \begin{exampleblock}{O problema da floresta maximal de peso mínimo em grafos planos}
 \begin{itemize}
-\item \MSFCreate(\var{n}): devolve um grafo dinâmico com \var{n} vértices isolados;
-\item \MSFaddEdge(\var{G},\var{u},\var{v},\var{w}): adiciona \var{uv} com peso \var{w} a~\var{G};
-\item \MSFdelEdge(\var{G},\var{u},\var{v}): remove \var{uv} de~\var{G}; e
-\item \MSFweight(\var{G}): devolve o peso de uma MSF de \var{G}.
+\item \MSFCreate($n$): devolve um grafo dinâmico com $n$ vértices isolados;
+\item \MSFaddEdge($G$,$u$,$v$,$w$): adiciona $uv$ com peso $w$ a~$G$;
+\item \MSFdelEdge($G$,$u$,$v$): remove $uv$ de~$G$; e
+\item \MSFweight($G$): devolve o peso de uma MSF de $G$.
 \end{itemize}
 \end{exampleblock}
 
@@ -679,67 +602,19 @@ $\var{G}.\var{R}\rightarrow\var{G}.\var{R}[\lceil \log \var{n} \rceil]$
 \begin{frame}{Caso decremental}
 \begin{exampleblock}{O caso decremental do problema MSF em grafos ponderados dinâmicos}
 \begin{itemize}
-\item \MSFCreate(\var{H}): recebe um grafo~\var{H} e devolve um grafo dinâmico e uma MSF dele;
-\item \MSFdelEdge(\var{G},\var{u},\var{v}): remove \var{uv} de~\var{G}; e
-\item \MSFweight(\var{G}): devolve o peso de uma MSF de \var{G}.
+\item \MSFCreate($H$): recebe um grafo~$H$ e devolve um grafo dinâmico e uma MSF dele;
+\item \MSFdelEdge($G$,$u$,$v$): remove $uv$ de~$G$; e
+\item \MSFweight($G$): devolve o peso de uma MSF de $G$.
 \end{itemize}
 \end{exampleblock}
 \begin{exampleblock}{Adaptação para o caso decremental}
 \begin{itemize}
-    \item $\var{F}_{\lceil \log \var{n} \rceil}$ deve ser de peso mínimo;
-    \item Em \dymGraphReplace{}, percorrer as arestas de nível \var{i} em ordem crescente de peso;
+    \item $F_{\lceil \log n \rceil}$ deve ser de peso mínimo;
+    \item Em \dymGraphReplace{}, percorrer as arestas de nível $i$ em ordem crescente de peso;
 \end{itemize}
 \end{exampleblock}
 \end{frame}
 
-\iffalse
-\begin{frame}{Caso decremental}
-\begin{algorithm}[H]
-\caption{\MSFCreate(\var{H})}
-\begin{algorithmic}[1]
-\State \var{G} $\gets$ \dymGraphCreate($|\var{H}|$)
-\State \var{F} $\gets$ Encontre uma MSF de \var{H}\Comment{Podemos usar Kruskal ou Prim}
-\For {\var{uv} $\in$ \var{F}}
-\State \dymGraphAddEdge(\var{G},\var{u},\var{v}\TODO{,\var{uv.w}})
-\EndFor
-\For {\var{uv} $\in$ \var{H} e \var{uv} $\notin$ \var{F}}
-\State \dymGraphAddEdge(\var{G},\var{u},\var{v}\TODO{,\var{uv.w}})
-\EndFor
-\State \Return \var{G}
-\end{algorithmic}
-\end{algorithm}
-
-\end{frame}
-\fi
-
-\subsection{Rotina para adição de arestas}
-\begin{frame}{Adição de arestas}
-\begin{algorithm}[H]
-\caption{\MSFaddEdge(\var{G},\var{u},\var{v},\var{w})}
-\label{Algo:MSFaddEdge}
-\begin{algorithmic}[1]
-\If {\dymForestQuery(\var{G}.\var{F},\var{u},\var{v})}
-  \For{cada \var{xy} no caminho de \var{u} a \var{v} em \var{G}.\var{F}}
-  \If{\var{xy}.\var{w} > \var{w}}
-  \State \dymForestDelEdge(\var{G}.\var{F},\var{x},\var{y})
-  \State \dymForestAddEdge(\var{G}.\var{F},\var{u},\var{v}\TODO{,\var{w}})
-  \State \Return
-  \EndIf
-  \EndFor
-  \State \graphAdd(\var{G}.\var{R},\var{u},\var{v}\TODO{,\var{w}})
-\Else
-\State \dymForestAddEdge(\var{G}.\var{F},\var{u},\var{v}\TODO{,\var{w}})
-\EndIf
-\end{algorithmic}
-\end{algorithm}
-\begin{exampleblock}{Árvores topológicas}
- \defi{Árvores topológicas} (top tree)~\cite{AHLTMinDiameter} permitem:
-    \begin{itemize}
-        \item obter informação sobre conexidade; e
-        \item percorrer caminhos da árvore.
-    \end{itemize}
-\end{exampleblock}
-\end{frame}
 
 
 
@@ -751,7 +626,6 @@ $\var{G}.\var{R}\rightarrow\var{G}.\var{R}[\lceil \log \var{n} \rceil]$
 \frametitle{Bibliografia}
 \bibliographystyle{plain}
     \bibliography{bib.bib}
-
 \end{frame}
 
 \end{document}
