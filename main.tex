@@ -14,7 +14,7 @@
 \newcommand{\red}{\color{red}}
 \newcommand{\green}{\color{green}}
 \newcommand{\TODO}[1]{{{\red #1}}}
-\newcommand{\var}[1]{$#1$} %define estilo de nomes de variaveis
+%\newcommand{\var}[1]{$#1$} %define estilo de nomes de variaveis
 \newcommand{\defi}[1]{\textbf{#1}} % defini estilo ao definir algo no texto
 \def\Nil{\text{NIL}}
 
@@ -62,8 +62,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\varname}[1]{\textit{#1}}
 \newcommand{\altvarname}[1]{$#1$}
-\newcommand{\node}{\mathit{n\acute{o}}}
-%\newcommand{\var}{\mathit{var}}
+\newcommand{\node}{\textit{nó}}
+\newcommand{\var}{\mathit{var}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %     Métodos de Grafos      %
@@ -316,7 +316,6 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \end{figure}
 \begin{center}
 {\large 30~00~04~41~12~22~21~11~14~44~45~55~54~40~03~33}
-
 \end{center}
 \end{frame}
 
@@ -329,7 +328,7 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \input{fig/SEQ-SIZE.tex}}
 \end{figure}
 \begin{center}
-{\large 11~12~22~21~11~14~44~45~55~54~44~40~00~04~44~43~33~34~44~41~11}
+{\large 30~00~04~41~12~22~21~11~14~44~45~55~54~40~03~33}
 \end{center}
 \end{frame}
 
@@ -337,17 +336,13 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \begin{frame}{Biblioteca de Euler Tour Trees}
 \begin{exampleblock}{Biblioteca de Euler Tour Trees}
 \begin{itemize}
-\item  \treapCreate($u$,$v$): retorna uma ABB com um único nó com valor uv;
-\item \treapJoin($T$,$R$): junta as ABBs $T$ e $R$ concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
-\item \treapSplit($T$, $\node$): corta~$T$ em duas ABBs. A primeira contendo todos os nós anteriores a~$\node$ e a segunda os demais;
+\item  \treapCreate($u$, $v$): retorna uma ABB com um único nó com valor uv;
+\item \treapJoin($T$, $R$): junta as ABBs $T$ e $R$ concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
+\item \treapSplit($\node$): corta a ABB que contém um nó~$\node$ em três ABBs. A primeira ABB contém todos os nós com chave estritamente menor do que a chave de~$\node$, a segunda contém somente~$\node$ e a última contém todos os nós com chave estritamente maior do que a chave de~$\node$. Essa rotina retorna as raízes dessas três ABBs; e
 \item \treapGetRoot($x$): retorna a raiz da ABB que contém $x$;
-\item \treapSearch($T$,$k$): retorna o nó com chave $k$ da árvore $T$;
-\item \treapOrder($\node$): retorna a chave de $\node$;
-\item \treapGetLast($T$): retorna o nó de maior chave na árvore~$T$; e
-\item \treapGetSize($T$): retorna o número de nós em $T$.
 \end{itemize}
 \end{exampleblock}
-\boxpurple{\centering  \treapCreate{} e \treapGetSize{} :~$\O{1}$.\\ As demais operações :~$\O{\lg n}$.}
+\boxpurple{\centering  \treapCreate{}:~$\O{1}$.\\ As demais operações :~$\O{\lg n}$.}
 \end{frame}
 
 \begin{frame}{Tabela de símbolos}
@@ -361,7 +356,7 @@ Associa $(u,v) \rightarrow uv$.
     \item $F[u,v] \gets uv$: insere o nó que contém $uv$, com chave $(u,v)$ e valor associado~$uv$ na tabela~$F$.
     Se o par~$(u,v)$ já estiver presente no dicionário, então seu valor associado é substituído por~$uv$;
     \item $F[u,v] \gets \Nil{}$: remove o nó associado a~$(u,v)$ e seu valor associado do dicionário~$F$;
-    \item $\var{} \gets F[u,v]$: atribui o valor associado à chave~$(u,v)$ à variável~\var;
+    \item $\var{} \gets F[u,v]$: atribui o valor associado à chave~$(u,v)$ à variável~$\var$;
 	Caso a chave~$(u,v)$ não esteja presente em~$F$, atribui~$\Nil$ a~$\var{} $.
 \end{itemize}
 \end{exampleblock}
@@ -376,7 +371,20 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \caption{\dymForestCreate($n$)}
 \label{Algo:dymForestCreate}
 \begin{algorithmic}[1]
-	\State \TODO{AAAAAAA}
+\State $F~\gets~\hashCreate(n)$
+\For {$v$ $\gets$ 1 até $n$}\label{Algo:dymForestCreate:for}
+\State $F[v,v]~\gets$ \treapCreate($v$, $v$)
+\EndFor
+\State \Return $F$
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{\dymForestQuery($F$, $u$, $v$)}
+\label{Algo:dymForestQuery}
+\begin{algorithmic}[1]
+\State \varname{uu} $\gets$ $F[u,u]$
+\State $vv$ $\gets$ $F[v,v]$
+\State \Return \treapGetRoot(\varname{uu}) = \treapGetRoot($vv$)
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
@@ -388,28 +396,30 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 
 \begin{frame}{Implementação da interface de floresta dinâmica}
 \begin{algorithm}[H]
-\caption{\dymForestAddEdge($F$,$u$,$v$)}
-\label{Algo:dymForestAddEdge}
-\begin{algorithmic}[1]
-\State \TODO{AAAAAAAAAAA}
-\end{algorithmic}
-\end{algorithm}
-\boxpurple{
-\centering
-\dymForestAddEdge{}  : $\O{\lg n}$
-}
-\end{frame}
-
-\begin{frame}{Rotina auxiliar \ETmovetofront{}}
-\begin{algorithm}[H]
 \caption{\ETmovetofront($F$,$u$)}
 \label{Algo:ETmovetofront}
 \begin{algorithmic}[1]
-\State \TODO{AAAAAAAAAAA}
+\State \varname{uu} $\gets$ $F[u,u]$\label{Algo:ETmovetofront:1}
+\State $A$, \varname{uu}, $B$ $\gets$ \treapSplit(\varname{uu})\label{Algo:ETmovetofront:2}
+\State \Return \treapJoin(\varname{uu}, $B$, $A$)\label{Algo:ETmovetofront:3}
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{\dymForestAddEdge($F$,$u$,$v$)}
+\label{Algo:dymForestAddEdge}
+\begin{algorithmic}[1]
+\State $U$ $\gets$ \ETmovetofront($F$, $u$)
+\State $V$ $\gets$ \ETmovetofront($F$, $v$)
+\State $uv$ $\gets$ \treapCreate($u$, $v$)
+\State $vu$ $\gets$ \treapCreate($v$, $u$)
+\State $F[u,v]$ $\gets$ $uv$
+\State $F[v,u]$ $\gets$ $vu$
+\State \treapJoin($U$, $uv$, $V$, $vu$)
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
 \centering
+\dymForestAddEdge{}  : $\O{\lg n}$\\
 \ETmovetofront{}  : $\O{\lg n}$
 }
 \end{frame}
@@ -419,7 +429,13 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \caption{\dymForestDelEdge($F$, $u$, $v$)}
 \label{Algo:dymForestDelEdge}
 \begin{algorithmic}[1]
-\State \TODO{AAAAAAAAAAA}
+\State $uv$ $\gets$ $F[u,v]$\label{Algo:dymForestDelEdge:1}
+\State $vu$ $\gets$ $F[v,u]$\label{Algo:dymForestDelEdge:2}
+\State $A$, $uv$, $B$ $\gets$ \treapSplit($uv$)\label{Algo:dymForestDelEdge:3}
+\State \treapJoin($B$, $A$)\label{Algo:dymForestDelEdge:4}
+\State \treapSplit($vu$)\label{Algo:dymForestDelEdge:5}
+\State $F[u,v]$ $\gets$ $\Nil{}$\label{Algo:dymForestDelEdge:6}
+\State $F[v,u]$ $\gets$ $\Nil{}$\label{Algo:dymForestDelEdge:7}
 \end{algorithmic}
 \end{algorithm}
 \boxpurple{
@@ -432,7 +448,7 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \begin{frame}{Uma treap imersa no plano cartesiano.}
 \boxblue{
 \centering
-Cada nó da treap possui um par ordenado \textbf{(chave,prioridade)}
+Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
 }
 \begin{figure}[htb]
 \centering
