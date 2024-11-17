@@ -11,6 +11,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Defini o estlo no algorithmic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\R}{\mathbb{R}}
 \newcommand{\red}{\color{red}}
 \newcommand{\green}{\color{green}}
 \newcommand{\TODO}[1]{{{\red #1}}}
@@ -466,9 +467,9 @@ Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
 \begin{exampleblock}{Conexidade em grafos dinâmicos}
 \begin{itemize}
 \item \dymGraphCreate($n$): cria um grafo dinâmico com $n$ vértices isolados;
-\item \dymGraphAddEdge($G$,$u$,$v$): adiciona a aresta $uv$ ao grafo dinâmico $G$;
-\item \dymGraphDelEdge($G$,$u$,$v$): remove a aresta $uv$ de $G$; e
-\item \dymGraphQuery($G$,$u$,$v$): retorna verdadeiro se $u$ e $v$ estão na mesma componente conexa de $G$ e falso, caso contrário.
+\item \dymGraphAddEdge($G$, $u$, $v$): adiciona a aresta $uv$ ao grafo dinâmico $G$;
+\item \dymGraphDelEdge($G$, $u$, $v$): remove a aresta $uv$ de $G$; e
+\item \dymGraphQuery($G$, $u$, $v$): retorna verdadeiro se $u$ e $v$ estão na mesma componente conexa de $G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
 
@@ -485,8 +486,8 @@ Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
 \begin{exampleblock}{Lista de adjacências}
 \begin{itemize}
     \item \graphCreate($n$): devolve a representação por listas de adjacências de um grafo com~$n$ vértices isolados.
-    \item \graphAdd($G$,$u$,$v$): adiciona $u$ na lista de adjacências de $v$ em $G$ e vice-versa.
-    \item \graphDel($G$,$u$,$v$): remove $u$ da lista de adjacências de $v$ em $G$ e vice-versa.
+    \item \graphAdd($G$, $u$, $v$): adiciona $u$ na lista de adjacências de $v$ em $G$ e vice-versa.
+    \item \graphDel($G$, $u$, $v$): remove $u$ da lista de adjacências de $v$ em $G$ e vice-versa.
 \end{itemize}
 \end{exampleblock}
 \boxpurple{
@@ -503,9 +504,23 @@ Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
 \caption{\dymGraphQuery($G$, $u$, $v$)}
 \label{Algo:dymGraphQuery}
 \begin{algorithmic}[1]
-\State $i$ 
+\State \Return \dymForestQuery($G$.$F$, $u$, $v$)
 \end{algorithmic}
 \end{algorithm}
+
+\begin{algorithm}[H]
+\caption{\dymGraphAddEdge($G$, $u$, $v$)}
+\label{Algo:dymGraphAddEdge}
+\begin{algorithmic}[1]
+\If {\dymForestQuery($G.F$, $u$, $v$)}
+\State \graphAdd($G$.$R$, $u$, $v$)
+\Else 
+\State \dymForestAddEdge($G.F$, $u$, $v$)
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+
 \boxpurple{
 \dymGraphQuery{} : $\O{\lg n}$\\
 \dymGraphAddEdge{}  : $\O{\lg^2 n}$ amortizado\TODO{!!}
@@ -523,15 +538,16 @@ Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
 \end{itemize}
 \end{block}
 \begin{block}{Estrutura}
-$G_i$: grafo com arestas de nível $\leqslant i$. Para cada camada $i$, manteremos:
+$G_{\leqslant i}$: grafo com arestas de nível $\leqslant i$. Para cada camada $i$, manteremos:
 \begin{itemize}
-    \item $F_i$: floresta maximal  de~$G_i$; e
-    \item $R_i$: arestas de nível~$i \notin F_i$.
+    \item $F_{\leqslant i}$: floresta maximal  de~$G_{\leqslant i}$; e
+    \item $R_i$: arestas de nível~$i \notin F_{\leqslant i}$.
 \end{itemize}
 \end{block}
 \begin{block}{Invariantes}
 \begin{itemize}
-    \item $F_i \subseteq F_{i+1}$, para cada $1\leqslant i \leqslant \lceil \log n \rceil-1$ e que $F_i$ é uma floresta maximal de~$G_i$; e
+    \item $F_{\leqslant i} \subseteq F_{\leqslant i+1}$, para cada $1\leqslant i \leqslant \lceil \log n \rceil-1$;
+    \item $F_{\leqslant i}$ é uma floresta maximal de~$G_{\leqslant i}$; e
     \item Cada componente de $F_i$ possui menos do que $2^i$ arestas.
 \end{itemize}
 \end{block}
@@ -540,20 +556,22 @@ $G_i$: grafo com arestas de nível $\leqslant i$. Para cada camada $i$, manterem
 \begin{frame}{Implementações}
 \begin{exampleblock}{Adaptações}
 \centering
-$G.F\rightarrow G.F_{\lceil \log n \rceil}$\\
-$G.R\rightarrow G.R_{\lceil \log n \rceil}$
+$G.F\rightarrow G.F_{\leqslant \lceil \log n \rceil}$\\
+$G.R\rightarrow G.R_{\leqslant \lceil \log n \rceil}$
 \end{exampleblock}
 \begin{algorithm}[H]
 \caption{\dymGraphDelEdge($G$, $u$, $v$)}
 \label{Algo:dymGraphDelEdge}
 \begin{algorithmic}[1]
-\If {$uv \in G.F_{\lceil \lg n \rceil}$}
-  \For {$i \gets uv.nível$ até $\lceil \lg n \rceil$}
-    \State \dymForestDelEdge($G$.$F$[i],$u$,$v$))
-  \EndFor
-  \State \dymGraphReplace($G$,$u$,$v$,$uv$.$nível$)
+\State $i$ $\gets$ \nivel[$u,v$]
+\State \nivel[$u,v$] $\gets$ $\Nil$
+\If {$uv$ $\in G.F_{\leqslant\lceil \lg n \rceil}$}\label{Algo:dymGraphDelEdge:linha:if}
+\For {$j$ $\gets$ $i$ até $\lceil \lg n \rceil$}\label{linha2}
+\State \dymForestDelEdge($G$.$F_j$, $u$, $v$)
+\EndFor
+\State \dymGraphReplace($G$, $u$, $v$, $i$)
 \Else
-  \State \graphDel($G$.$R$[$uv$.$nível$],$u$,$v$)
+  \State \graphDel($G$.$R_i$, $u$, $v$)\label{Algo:dymGraphDelEdge:linha:removeLA}
 \EndIf
 \end{algorithmic}
 \end{algorithm}
@@ -583,10 +601,33 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 
 \begin{frame}{A rotina \dymGraphReplace{}}
 \begin{algorithm}[H]
-\caption{\dymGraphReplace($G$,$u$,$v$,$nível$)}
+\caption{\dymGraphReplace($G$,$u$,$v$,$\nivel$)}
 \label{Algo:dymGraphReplace}
 \begin{algorithmic}[1]
-\State $i$
+\For {$i$ $\gets$ $niv$ até $\lceil \lg n \rceil$}\label{Algo:dymGraphReplace:linha:primeira}
+\State $T_v$ $\gets$  \treapGetRoot($F_i[v,v]$)
+\State $T_u$ $\gets$  \treapGetRoot($F_i[u,u]$)
+\If {\treapGetSize($T_v$) < \treapGetSize($T_u$)}\Comment{Garantimos que $|T_v|\geqslant |T_u|$}
+\State $u$ $\leftrightarrow$ $v$
+\State $T_u \leftrightarrow T_v$
+\EndIf
+\For {$xy$ em $T_u$ com \nivel = $i$}\label{Algo:dymGraphReplace:linha:moveTu}\Comment{Move $T_u$ para o nível $i-1$}
+\State \nivel$[x,y]$ $\gets$ $i-1$ \label{Algo:dymGraphReplace:linha:moveTu2}
+\State \dymForestAddEdge($G$.$F_{i-1}$, $x$, $y$) \label{Algo:dymGraphReplace:linha:moveTu3}
+\EndFor
+\For {$xy$ em $G$.$R_i$ com $x$ em $T_u$}\label{Algo:dymGraphReplace:linha:achaSub}\Comment{Procura substituta para $uv$}
+\State \graphDel($G$.$R_i$, $x$, $y$)
+\If {$y \in T_v$}\label{Algo:dymGraphReplace:linhayinTv}
+\For {$j \gets i$ até $\lceil \lg n \rceil$}\label{Algo:dymGraphReplace:linha:inseresub}
+\State \dymForestAddEdge($G$.$F_j$, $x$, $y$)
+\EndFor
+\State \Return
+\Else
+\State \nivel$[x,y]$ $\gets$ $i-1$ \label{Algo:dymGraphReplace:linha:rebaixar}
+\State \graphAdd($G$.$R_{i-1}$, $x$, $y$) \label{Algo:dymGraphReplace:linha:rebaixar2}
+\EndIf
+\EndFor
+\EndFor\label{Algo:dymGraphReplace:linha:ultima}
 \end{algorithmic}
 \end{algorithm}
 \end{frame}
@@ -595,23 +636,11 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 % --------------------------------------------------------------------- %
 % Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos %
 % --------------------------------------------------------------------- %
-\section{Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos}
-
-\begin{frame}{Floresta maximal de peso mínimo}
-\begin{exampleblock}{O problema da floresta maximal de peso mínimo em grafos planos}
-\begin{itemize}
-\item \MSFCreate($n$): devolve um grafo dinâmico com $n$ vértices isolados;
-\item \MSFaddEdge($G$,$u$,$v$,$w$): adiciona $uv$ com peso $w$ a~$G$;
-\item \MSFdelEdge($G$,$u$,$v$): remove $uv$ de~$G$; e
-\item \MSFweight($G$): devolve o peso de uma MSF de $G$.
-\end{itemize}
-\end{exampleblock}
-\end{frame}
+\section[MSF plano]{Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos}
 
 \subsection{Definição do problema}
 \begin{frame}{Floresta maximal de peso mínimo}
-O problema da floresta maximal de peso mínimo (MSF) em grafos dinâmicos planos ponderados consiste na busca por uma implementação tão eficiente quanto possível para a seguinte biblioteca:
-
+\begin{exampleblock}{O problema da floresta maximal de peso mínimo em grafos planos}
 \begin{itemize}
 \item \MSFCreate($n$): Cria e devolve um grafo plano ponderado~$G$ com $n$ vértices isolados.
 \item \MSFaddEdge($G$, $e$, $u$, $e_u$, $v$, $e_v$, $w$): Insere em~$G$ uma nova aresta~$e$ com peso~$w$ ligando os vértices~$u$ e~$v$. A nova aresta~$e$ é sucessora das arestas~$e_u$ e~$e_v$ nas ordenações cíclicas de~$u$ e~$v$, respectivamente.
@@ -619,10 +648,162 @@ O problema da floresta maximal de peso mínimo (MSF) em grafos dinâmicos planos
 \item \MSFupdate($G$, $e$, $w$): Altera o peso da aresta~$e$ de~$G$ para o valor~$w$.
 \item \MSFweight($G$): Devolve o peso de uma MSF de $G$.
 \end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Grafo plano}
+\begin{block}{Grafo plano}
+Um \defi{grafo plano}~\cite{Diestel} é um par de conjuntos finitos $G = (V, E)$ com as seguintes propriedades:
+\begin{enumerate}
+\item $V\subset \R^2$;
+\item Toda aresta é um arco entre dois vértices;
+\item O interior de uma aresta não contém vértices nem intersecta outras arestas.
+\end{enumerate}
+\end{block}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{tabular}{| c  c |} 
+ \hline
+ aresta & peso\\
+ \hline
+ $a$ & 2 \\ 
+ \hline
+$b$ & 7 \\
+ \hline
+$c$ & 3 \\
+ \hline
+$d$ & 1 \\
+ \hline
+$f$ & 2 \\
+ \hline
+$g$ & 4 \\
+ \hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{figure}[H]
+\scalebox{1}{
+\input{fig/MSF-basico-0.tex}
+	}
+\end{figure}
+\end{minipage}
+
 \end{frame}
 
 
+
+
+\begin{frame}{Grafo dual}
+\begin{block}{Grafo dual}
+Dado um grafo plano~$G$, o grafo \defi{dual} de~$G$~\cite{Diestel} é o grafo $G^\star = (F,E^\star)$, onde
+\begin{itemize}
+\item $F$ é o conjunto de faces de~$G$;
+\item $E^\star$ é o conjunto de arestas duais de~$G$.
+\end{itemize}
+\end{block}
+\begin{figure}[H]
+\scalebox{1.2}{
+\centering
+\input{fig/MSF-basico-1.tex}
+}
+\label{fig:MSF-basico-1}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Grafo dual}
+\begin{theorem}[\cite{EPPSTEIN-planar}]
+\label{teo:MSFdual}
+Seja~$T$ uma árvore geradora de um grafo plano conexo~$G$. O conjunto
+$$
+T^\star = \{e^\star:e\notin T\}
+$$
+é uma árvore geradora de~$G^\star$.
+Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ será de peso mínimo em~$G$ se e somente se~$T^\star$ for de peso máximo em~$G^\star$ e vice versa.
+\end{theorem}
+
+\begin{figure}[H]
+\scalebox{.6}{
+\input{fig/MSF-basico-1.tex}
+}
+\scalebox{1}{
+\input{fig/MSF-basico-2}
+}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Grafo dual}
+\begin{minipage}[H]{0.4\textwidth}
+\centering
+\begin{tabular}{| c  c |} 
+ \hline
+ vértices & pesos\\
+ \hline
+ $\hat a$, $\hat a_1$, $\hat a_3$ & 2 \\ 
+ \hline
+ $\hat b$, $\hat b_0$, $\hat b_2$ & 7 \\
+ \hline
+ $\hat c$, $\hat c_0$, $\hat c_2$ & 3 \\
+ \hline
+ $\hat d$, $\hat d_0$, $\hat d_2$ & 2 \\
+ \hline
+ $\hat f$, $\hat f_1$, $\hat f_3$ & 1 \\
+ \hline
+ $\hat g$, $\hat g_1$, $\hat g_3$ & 4 \\
+ \hline
+ $\hat u$, $\hat v$, $\hat y$, $\hat z$ & $-\infty$ \\
+ \hline
+ $\hat F_0$, $\hat F_1$, $\hat F_2$, $\hat F_3$ & $\infty$ \\
+ \hline
+\end{tabular}
+\end{minipage}
+\hfill
+\begin{minipage}[H]{0.5\textwidth}
+    \centering
+\scalebox{.6}{
+\input{fig/MSF-basico-3}
+}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\end{frame}
+
 \subsection{Árvores dinâmicas planas}
+\begin{frame}{Árvores Dinâmicas Planas}
+\begin{exampleblock}{Biblioteca ADP}
+\begin{itemize}
+\item \LCOMakeOcto($e$, $w$): Recebe um identificador~$e$ e um peso~$w$ e cria e retorna uma óctupla de nós de ADP associados a~$e$ com peso~$w$.
+\item \LCODestroyOcto($H$, $e$): Recebe uma tabela de símbolos~$H$ e um identificador~$e$ e desaloca a óctupla associada a~$e$ da memória.
+
+\item \LCOConnected($p$, $q$): Retorna verdadeiro se os nós~$p$ e~$q$ estiverem na mesma ADP e falso caso contrário.
+\item \LCOFindNode($p$): Recebe um nó $p$ e retorna o vértice da~$\hat F$ que contêm $p$ em sua ordem cíclica.
+
+\item \LCOAddCost($p$, $w$): Atribui o peso~$w$ ao vértice que contém $p$ em sua ordem cíclica.
+\item \LCOMax($p$, $q$): Retorna o nó de peso máximo no percurso entre os nós~$p$ e~$q$.
+Essa operação assume que $p$ e~$q$ são nós da mesma ADP.
+\item \LCOMin($p$, $q$): Retorna o nó de peso mínimo no percurso entre os nós~$p$ e~$q$.
+Essa operação assume que~$p$ e~$q$ são nós da mesma ADP.
+\item \LCOCycle($p$): Permuta ciclicamente $D(u)$ de forma que o nó~$p$ seja o último na ordem.
+Se a ordem inicial tem forma $\alpha p \beta$, então a ordem resultante é $\beta\alpha p$.
+\item \treapPredecessor($p$): Retorna o predecessor do nó~$p$ na ordem cíclica.
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
 \subsection{Resolvendo MSF com ADPs}
 \subsection{Implementação de árvores dinâmicas planas}
 
