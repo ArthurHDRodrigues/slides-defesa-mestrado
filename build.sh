@@ -1,7 +1,6 @@
 #!/bin/bash
 
 pdflatex --interaction=nonstopmode main.tex
-makeindex -s mkidxhead.ist -l -c main.idx
-biber main
+bibtex main
 pdflatex --interaction=nonstopmode  main.tex
-ls
+pdflatex --interaction=nonstopmode  main.tex
