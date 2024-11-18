@@ -243,6 +243,7 @@
 \item \dymGraphQuery($G$, $u$, $v$): retorna verdadeiro se $u$ e~$v$ estão na mesma componente conexa de~$G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
+
 \end{frame}
 
 \begin{frame}{Problemas MSF}
@@ -292,6 +293,7 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \item \dymForestQuery($F$,$u$,$v$): retorna verdadeiro se $u$ e~$v$ estão na mesma componente conexa de~$F$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
+Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Henzinger e King~\cite{HenzingerKing}.
 \end{frame}
 
 \subsection{Euler Tour Trees}
@@ -472,6 +474,7 @@ Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
 \item \dymGraphQuery($G$, $u$, $v$): retorna verdadeiro se $u$ e $v$ estão na mesma componente conexa de $G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
+Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Jacob Holm, Kristian de Lichtenberg e Mikkel Thorup~\cite{poly_log}.
 
 \end{frame}
 
@@ -1126,7 +1129,7 @@ $$
 \end{frame}
 
 \begin{frame}{Grafo dual}
-Para concluirmos, note que $\Omega(k\lg n)$ limita inferiormente o consumo de tempo das rotinas \VPSPupdate{} e \VPSPverify{}. O algoritmo \VPSPupdate{} faz~$k$ remoções e inserções de arestas e \VPSPverify{} faz~$k$ consultas de conexidade. Logo se denotarmos por $t_m$ a soma do consumo de tempo de uma execução de \dymGraphAddEdge{} e \dymGraphDelEdge{} e $t_c$ o consumo de tempo de \dymGraphQuery{}, então deduzimos que $t_u = k t_m$ e $t_q = k t_c$. Substituindo esses valores no Teorema~\ref{theo:lim}, teremos:
+Para concluirmos, note que $\Omega(k\lg n)$ limita inferiormente o consumo de tempo das rotinas \VPSPupdate{} e \VPSPverify{}. O algoritmo \VPSPupdate{} faz~$k$ remoções e inserções de arestas e \VPSPverify{} faz~$k$ consultas de conexidade. Logo se denotarmos por $t_m$ a soma do consumo de tempo de uma execução de \dymGraphAddEdge{} e \dymGraphDelEdge{} e $t_c$ o consumo de tempo de \dymGraphQuery{}, então deduzimos que $t_u = k t_m$ e $t_q = k t_c$.
 \begin{align*}
 \min\{t_u,t_q\}\lg \left( \frac{\max\{t_u,t_q\}}{\min\{t_u,t_q\}}\right) &= \Omega\left(\frac{\delta}{b}\lg p\right)&\implies\\
 \min\{k t_m,k t_c\}\lg \left( \frac{\max\{k t_m,k t_c\}}{\min\{k t_m,k t_c\}}\right) &= \Omega(k \lg n)&\implies\\
