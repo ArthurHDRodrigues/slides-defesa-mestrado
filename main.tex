@@ -639,18 +639,6 @@ $G.R\rightarrow G.R_{\leqslant \lceil \log n \rceil}$
 \section[MSF plano]{Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos}
 
 \subsection{Definição do problema}
-\begin{frame}{Floresta maximal de peso mínimo}
-\begin{exampleblock}{O problema da floresta maximal de peso mínimo em grafos planos}
-\begin{itemize}
-\item \MSFCreate($n$): Cria e devolve um grafo plano ponderado~$G$ com $n$ vértices isolados.
-\item \MSFaddEdge($G$, $e$, $u$, $e_u$, $v$, $e_v$, $w$): Insere em~$G$ uma nova aresta~$e$ com peso~$w$ ligando os vértices~$u$ e~$v$. A nova aresta~$e$ é sucessora das arestas~$e_u$ e~$e_v$ nas ordenações cíclicas de~$u$ e~$v$, respectivamente.
-\item \MSFdelEdge($G$, $e$): Remove a aresta~$e$ de~$G$.
-\item \MSFupdate($G$, $e$, $w$): Altera o peso da aresta~$e$ de~$G$ para o valor~$w$.
-\item \MSFweight($G$): Devolve o peso de uma MSF de $G$.
-\end{itemize}
-\end{exampleblock}
-\end{frame}
-
 \begin{frame}{Grafo plano}
 \begin{block}{Grafo plano}
 Um \defi{grafo plano}~\cite{Diestel} é um par de conjuntos finitos $G = (V, E)$ com as seguintes propriedades:
@@ -709,6 +697,56 @@ Dado um grafo plano~$G$, o grafo \defi{dual} de~$G$~\cite{Diestel} é o grafo $G
 \end{figure}
 \end{frame}
 
+\begin{frame}{Descrição combinatória plana}
+\begin{block}{descrição combinatória plana}
+Para cada vértice $v$ de um grafo plano~$G$, existe uma ordem cíclica~$D(v)$ das aresta incidentes a~$v$ obtida percorrendo as arestas incidentes a~$v$ em sentido anti-horário até retornar à aresta inicial do percurso.
+Uma \defi{descrição combinatória plana} de~$G$ é uma lista de todas essas ordens cíclicas.
+\end{block}
+\begin{minipage}[H]{0.1\textwidth}
+\begin{align*}
+D(u)&=\langle (a,v), (b,v), (c,z))\rangle\\
+D(v)&=\langle (a,u), (d,z), (b,u)  \rangle\\
+D(z)&=\langle (c,u), (d,v), (g,y) \rangle \\
+D(y)&=\langle (e,z), (f,y), (f,y) \rangle
+\end{align*}
+\begin{align*}
+D(F_0)&=\langle (a^\star, F_2), (c^\star, F_1), \\
+      &~~~~~~~(g^\star, F_0), (y^\star, F_3), \\
+      &~~~~~~~(g^\star, F_0), (d^\star, F_1) )\rangle\\
+D(F_1)&=\langle (b^\star, F_2), (d^\star, F_0), (c^\star, F_0)  \rangle\\
+D(F_2)&=\langle (a^\star, F_0), (b^\star, F_1)\rangle \\
+D(F_3)&=\langle (f^\star, F_0)\rangle
+\end{align*}
+\end{minipage}
+\hspace{-1cm}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{figure}[H]
+\scalebox{1.2}{
+\centering
+\input{fig/MSF-basico-1.tex}
+}
+\label{fig:MSF-basico-1}
+\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Floresta maximal de peso mínimo}
+\begin{exampleblock}{O problema da floresta maximal de peso mínimo em grafos planos}
+\begin{itemize}
+\item \MSFCreate($n$): Cria e devolve um grafo plano ponderado~$G$ com $n$ vértices isolados.
+\item \MSFaddEdge($G$, $e$, $u$, $e_u$, $v$, $e_v$, $w$): Insere em~$G$ uma nova aresta~$e$ com peso~$w$ ligando os vértices~$u$ e~$v$. A nova aresta~$e$ é sucessora das arestas~$e_u$ e~$e_v$ nas ordenações cíclicas de~$u$ e~$v$, respectivamente.
+\item \MSFdelEdge($G$, $e$): Remove a aresta~$e$ de~$G$.
+\item \MSFupdate($G$, $e$, $w$): Altera o peso da aresta~$e$ de~$G$ para o valor~$w$.
+\item \MSFweight($G$): Devolve o peso de uma MSF de $G$.
+\end{itemize}
+\end{exampleblock}
+
+\begin{exampleblock}{Árvores dinâmicas planas}
+Apresentaremos a solução proposta por Eppstein e outros~\cite{EPPSTEIN-planar} para esse problema. 
+O nome da estrutura de dados introduzida por esses autores é \textit{edge-ordered dynamic tree} que traduzimos para \defi{árvores dinâmicas planas}.
+\end{exampleblock}
+
+\end{frame}
 
 \begin{frame}{Grafo dual}
 \begin{theorem}[\cite{EPPSTEIN-planar}]
@@ -733,8 +771,8 @@ Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ se
 
 
 
-\begin{frame}{Grafo dual}
-\begin{minipage}[H]{0.4\textwidth}
+\begin{frame}{Árvores modificadas}
+\begin{minipage}[H]{0.3\textwidth}
 \centering
 \begin{tabular}{| c  c |} 
  \hline
@@ -758,28 +796,26 @@ Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ se
  \hline
 \end{tabular}
 \end{minipage}
-\hfill
 \begin{minipage}[H]{0.5\textwidth}
     \centering
-\scalebox{.6}{
+\scalebox{.7}{
 \input{fig/MSF-basico-3}
 }
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Grafo dual}
-\end{frame}
-
-\begin{frame}{Grafo dual}
-\end{frame}
-
-\begin{frame}{Grafo dual}
-\end{frame}
-
-\begin{frame}{Grafo dual}
-\end{frame}
-
-\begin{frame}{Grafo dual}
+\begin{frame}{Exemplo de ADP}
+\begin{figure}[htb]
+\scalebox{.9}{
+\centering
+\input{fig/MSF-basico-4}
+}
+\label{fig:MSF-figura-4}
+\end{figure}
+\begin{block}{Óctupla de $e$}
+Há $8$ nós de link cut tree para cada aresta $e$ de~$G$.
+Chamaremos esses~$8$ de \defi{óctupla de $e$}.
+\end{block}
 \end{frame}
 
 \subsection{Árvores dinâmicas planas}
@@ -805,14 +841,304 @@ Se a ordem inicial tem forma $\alpha p \beta$, então a ordem resultante é $\be
 \end{frame}
 
 \subsection{Resolvendo MSF com ADPs}
+\begin{frame}{Criação de grafo plano ponderado dinâmico e obtenção de peso}
+\begin{algorithm}[H]
+\caption{\MSFCreate($n$)}
+\label{Algo:MSFCreate}
+\begin{algorithmic}[1]
+\State $G.H$ $\gets$ \hashCreate($n$)
+\State $G.p$ $\gets$ $0$
+\State \Return $G$
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{\MSFweight($G$)}
+\label{Algo:MSFweight}
+\begin{algorithmic}[1]
+\State \Return $G$.$p$
+\end{algorithmic}
+\end{algorithm}
+\boxpurple{
+	\centering
+	\MSFCreate:~$\O{n}$.\\
+	\MSFweight:~$\O{1}$.\\
+	\MSFaddEdge:~$\O{\lg m}$\\
+	\MSFdelEdge:~$\O{\lg m}$.\\
+	\MSFupdate:~$\O{\lg m}$.
+}
+\end{frame}
+
+\begin{frame}{Mudança de peso}
+\begin{algorithm}[H]
+\caption{\MSFupdate($G$, $e$, $w$)}
+\label{Algo:MSFupdate}
+\begin{algorithmic}[1]
+	\State $e_0$, $e_1$, $e_2$, $e_3$, $v_0$, $v_1$, $v_2$, $v_3$ $\gets$ $G.H(e)$ \label{Algo:MSFupdate:linha:const1}
+\For {$i \in \{0,1,2,3\}$} \label{Algo:MSFupdate:linha:laçosetpeso}
+\State  \LCOAddCost($e_i$, $w$) \label{Algo:MSFupdate:linha:LCOAddCost}
+\EndFor
+
+\If {\LCOFindNode($e_0$) $=$ \LCOFindNode($e_2$)}\label{Algo:MSFupdate:linha:if} \Comment{$e\in F$}
+\State $d$ $\gets$ \LCOMin($e_1$, $e_3$)\label{Algo:MSFupdate:linhamin}
+
+\State $d_0$, $d_1$, $d_2$, $d_3$, $y_0$, $y_1$, $y_2$, $y_3$ $\gets$ $G.H(d)$ \label{Algo:MSFupdate:linha:const2}
+\If {$d_0$.$w$ < $w$}\label{Algo:MSFupdate:linha:compara}
+\State $G$.$p$ $\gets$ $G.p-e_0.w+d_0$.$w$ \label{Algo:MSFupdate:linha:atualizaPeso}
+\State \LCOCycle($d_3$); \LCOSplit($d_3$, $\hat d_1$, $\hat d_3$)
+\State \LCOCycle($e_2$); \LCOSplit($e_2$, $\hat e_0$, $\hat e_2$ )\label{Algo:MSFupdate:linhasplit}
+
+\State \LCOMerge($d_0$, $d_2$, $\hat d$); \LCOMerge($e_1$, $e_3$, $\hat e$)\label{Algo:MSFupdate:linhas:Merge}
+
+\EndIf
+
+\Else\Comment{$e^\star\in F^\star$}
+\State $d$ $\gets$ \LCOMax($e_0$, $e_2$)\label{Algo:MSFupdate:dualinicio}
+
+\State $d_0$, $d_1$, $d_2$, $d_3$, $y_0$, $y_1$, $y_2$, $y_3$ $\gets$ $G.H(d)$\label{Algo:MSFupdate:linha:const3}
+\If {$d_0$.$w$ > $w$}
+\State $G$.$p$ $\gets$ $G$.$p-e_0.w+d_0$.$w$\label{Algo:MSFupdate:linha:const4}
+\State \LCOCycle($d_0$); \LCOSplit($d_0$, $\hat d_2$, $\hat d_0$)
+\State \LCOCycle($e_1$); \LCOSplit($e_1$, $\hat e_3$, $\hat e_1$)
+
+\State \LCOMerge($d_1$, $d_3$, $\hat d$); \LCOMerge($e_0$, $e_2$, $\hat e$)
+
+\EndIf
+\EndIf\label{Algo:MSFupdate:dualfim}
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Remoção de aresta}
+\begin{algorithm}[H]
+\caption{\MSFdelEdge($G$, $e$)}
+\label{Algo:MSFdelEdge}
+\begin{algorithmic}[1]
+\State $e_0$, $e_1$, $e_2$, $e_3$, $v_0$, $v_1$, $v_2$, $v_3$ $\gets$ $G.H(e)$ \label{Algo:MSFdelEdge:linha:1}
+\For {$i\in \{0, 1, 2, 3\}$}\label{Algo:MSFdelEdge:linha:laco}
+\State $\hat e_i$ $\gets$ \LCOFindNode($e_i$)
+\State $\hat v_i$ $\gets$ \LCOFindNode($v_i$)
+\EndFor
+
+\If {$\hat v_1$ $=$ $\hat v_3$ }\label{Algo:MSFdelEdge:linha2}\Comment{$e^\star$ é um laço de $G^\star$}
+
+\State \LCOCycle($v_0$); \LCOSplit($v_0$, $\hat v_0$, \Nil)\label{Algo:MSFdelEdge:linha3}
+\State \LCOCycle($v_1$); \LCOSplit($v_1$, $\hat v_1$, \Nil)\label{Algo:MSFdelEdge:c1:v1}
+\State \LCOCycle($v_2$); \LCOSplit($v_2$, $\hat v_2$, \Nil)\label{Algo:MSFdelEdge:c1:v2}
+\State \LCOSplit($v_3$, $F_0$, $F_1$) \label{Algo:MSFdelEdge:c1:split}
+\State \LCOCycle($v_3$); \LCOSplit($v_3$, $\hat v_3$, \Nil)\label{Algo:MSFdelEdge:linha12}
+\Else\Comment{$e$ está em um ciclo em $G$}
+\State \MSFupdate($G$, $e$, $\infty$)\label{Algo:MSFdelEdge:linha:mudaPeso}
+\State \LCOCycle($e_1$); \LCOSplit($e_1$, $\hat e_3$, $\hat e_1$) \label{Algo:MSFdelEdge:linha:split}
+\State \LCOCycle($v_1$); \LCOCycle($v_3$); \LCOMerge($v_1$, $v_3$, $F_0$) \label{Algo:MSFdelEdge:linha:merge}
+\State \LCOCycle($v_0$); \LCOSplit($v_0$, $\hat v_0$, \Nil) \label{Algo:MSFdelEdge:linha:1cs}
+\State \LCOCycle($v_1$); \LCOSplit($v_1$, $F_0$, \Nil )
+\State \LCOCycle($v_2$); \LCOSplit($v_2$, $\hat v_2$, \Nil)
+\State \LCOCycle($v_3$); \LCOSplit($v_3$, $F_0$, \Nil)
+	\label{Algo:MSFdelEdge:linha:ucs}
+	\label{Algo:MSFdelEdge:linha:fim}
+\EndIf
+\State \LCODestroyOcto($G.H$, $e$)\label{Algo:MSFdelEdge:linha:desaloca}
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Adição de aresta}
+\begin{algorithm}[H]
+\caption{\MSFaddEdge($G$, $e$, $u$, $f$, $v$, $g$, $w$)}
+\label{Algo:MSFaddEdge}
+\begin{algorithmic}[1]
+
+\State $f_0$, $f_1$, $f_2$, $f_3$, $u_0$, $u_1$, $u_2$, $u_3$ $\gets$ $G.H(f)$ \label{Algo:MSFaddEdge:linha:1}
+\State $g_0$, $g_1$, $g_2$, $g_3$, $v_0$, $v_1$, $v_2$, $v_3$ $\gets$ $G.H(g)$ \label{Algo:MSFaddEdge:linha:2}
+
+\If {\LCOFindNode($u_0$) $=$ $u$} $i$ $\gets$ $0$ \textbf{senão} $i$ $\gets$ $2$
+\EndIf
+\If {\LCOFindNode($v_0$) $=$ $v$} $j$ $\gets$ $0$ \textbf{senão} $j$ $\gets$ $2$
+\EndIf
+
+
+\State $G.H(e)$ $\gets$ $e_0$, $e_1$, $e_2$, $e_3$, $s_0$, $s_1$, $s_2$, $s_3$ $\gets$ \LCOMakeOcto($e$, $w$) \label{Algo:MSFaddEdge:linha:const3}
+
+\State \LCOCycle($u_i$); \LCOMerge($u_i$, $s_0$, $u$)\label{Algo:MSFaddEdge:merges0}
+\State \LCOCycle($v_j$); \LCOMerge($v_j$, $s_2$, $v$)\label{Algo:MSFaddEdge:merges2}
+
+
+\State \LCOCycle(\treapPredecessor($u_{i-1}$)); \LCOMerge($u_{i-1}$, $s_3$, \LCOFindNode($u_{i-1}$))\label{Algo:MSFaddEdge:merges1}
+\State \LCOCycle(\treapPredecessor($v_{j-1}$)); \LCOMerge($v_{j-1}$, $s_1$, \LCOFindNode($v_{j-1}$))\label{Algo:MSFaddEdge:merges3}
+
+\If{\LCOConnected($u$, $v$)}\label{Algo:MSFaddEdge:linha:deteccao-caso}
+\State \LCOSplit($u_{i-1}$, $F_u$, $F'_u$)\label{Algo:MSFaddEdge:linha:splitnaoponte}
+\State \MSFupdate($G$, $e$, $w$)
+\Else
+\State \LCOMerge($u_{i+1}$, $v_{j+1}$, $F_{uv}$)\label{Algo:MSFaddEdge:linha:mergeponte}
+\State \LCOMerge($e_0$, $e_2$, $\hat e$)
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+\end{frame}
+
+\iffalse
+\begin{frame}{}
+\end{frame}
+
+\begin{frame}{}
+\end{frame}
+\fi
 \subsection{Implementação de árvores dinâmicas planas}
 
 
 \section{O limitante inferior de~$\Omega(\lg n)$}
-\subsection{O modelo de computação cell-probe}
 \subsection{Verificação de soma parcial em~$S_k$}
+
+\begin{frame}{Verificação de soma parcial em~$S_k$}
+Mihai Patrascu e Erik D. Demaine~\cite{lowerBoundPatrascu} provaram o seguinte limitante inferior:
+\begin{theorem}
+Seja $t_m$ o consumo de tempo de \dymGraphAddEdge{} ou \dymGraphDelEdge{} e~$t_c$ o consumo de tempo de \dymGraphQuery{}, então
+$$
+\min\{ t_m, t_c\}\lg \left( \frac{\max\{ t_m, t_c\}}{\min\{ t_m,t_c\}}\right) = \Omega(\lg n).
+$$
+Esse limitante é válido mesmo para implementações aleatorizadas e/ou amortizadas de \dymGraphAddEdge{}, \dymGraphDelEdge{} e \dymGraphQuery{} e mesmo restringindo a classe de grafos do problema para caminhos.
+\end{theorem}
+\end{frame}
+
+\begin{frame}{Ideia de prova}
+
+\begin{enumerate}
+\item Apresentar o problema VSP$S_k$.
+\item Reduzir VSP$S_k$ a conexidade de grafos dinâmicos.
+\item Usar um limitante inferior de VSP$S_k$ para limitar o problema de conexidade de grafos dinâmicos.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Verificação de soma parcial em~$S_k$}
+O grupo $S_k$ é o grupo finito formado pelo conjunto de todas as bijeções sobre o conjunto~${[k]:=\{1,2,\ldots,k\}}$ munido da operação de composição de funções~\cite{agozine2010}.
+\begin{figure}[htb]
+\centering
+\input{fig/LIM-exemplo-uma-perm}
+\label{fig:LIM-exemplo-uma-perm}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\begin{figure}[htb]
+\centering
+	\scalebox{.8}{
+\input{fig/LIM-exemplo-comp}
+	}
+\caption{Exemplo de uma composição de permutações adotando $p=4$. Temos~$\varphi = \phi_4\circ \phi_3\circ \phi_2\circ \phi_1$.}
+\label{fig:LIM-exemplo-comp}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Problema da verificação de soma parcial em $S_{k}$}
+\begin{exampleblock}{Problema da verificação de soma parcial em $S_{k}$}
+O \defi{problema da verificação de soma parcial em $S_{k}$ (VSP$S_k$)} visa manter uma sequência de~$p$ permutações ${\phi=(\phi_1, \phi_2, \ldots, \phi_p)}$ de forma a implementar eficientemente a seguinte biblioteca:
+\begin{itemize}
+\item \VPSPupdate($\phi$, $i$, $\varphi$): a $i$-ésima coordenada de $\phi$ passa a ser a permutação~$\varphi$ ; e
+\item \VPSPverify($\phi$, $i$, $\varphi$): retorna verdadeiro se~$\phi_i\circ \cdots\circ \phi_1 = \varphi$ e falso, caso contrário.
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}{Limitante inferior para o problema VSP$S_k$}
+Mihai Patrascu e Erik D. Demaine~\cite{lowerBoundPatrascu} provaram o seguinte resultado:
+
+\begin{theorem}
+Os consumos de tempo $t_u$ e $t_q$ das rotinas \VPSPupdate{} e~\VPSPverify, respectivamente, implementadas com qualquer estrutura de dados sob o modelo \textit{cell-probe} para solucionar VSP$S_k$ estão relacionados e limitados por
+$$
+\min\{t_u,t_q\}\lg \left( \frac{\max\{t_u,t_q\}}{\min\{t_u,t_q\}}\right) = \Omega\left(\frac{\delta}{b}\lg p\right),
+$$
+onde cada célula possui $b$ bits e são necessários $\delta$ bits para representar cada parâmetro da rotina.  Esse limitante continua válido mesmo se a estrutura de dados utilizar amortização, não determinismo, aleatorização Las Vegas ou Monte Carlo com erro probabilístico~$p^{-\Omega(1)}$.
+\end{theorem}
+\end{frame}
+
 \subsection[Redução do VSP$S_k$ para conexidade em grafos dinâmicos]{Redução do problema VSP$S_k$ para conexidade em grafos dinâmicos}
+
+\begin{frame}{Redução de VSP$S_k$ a conexidade de grafos dinâmicos}
+\begin{figure}[htb]
+\centering
+\input{fig/LIM-convertido}
+\label{fig:LIM-convertido}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Rotina para converter uma instância de VSP$S_k$ em uma intância de conexidade em grafos dinâmicos}
+\begin{algorithm}[H]
+\caption{\VPSPconvert($\phi$, $p$, $k$)}
+\label{Algo:VPSPconvert}
+\begin{algorithmic}[1]
+\State $G(\phi)$ $\gets$ \dymGraphCreate($(p+1)\cdot k)$
+\State $G(\phi).\phi$ $\gets$ $\phi$
+\For {$x$ $\gets$ 1 até $p+1$}
+  \For {$y$ $\gets$ 1 até $k$}
+    \State \dymGraphAddEdge($G(\phi)$, $(x,~y)$, $(x+1, ~\phi_x(y))$)
+  \EndFor
+\EndFor
+\State \Return $G(\phi)$
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Grafo dual}
+\begin{algorithm}[H]
+\caption{\VPSPupdate($G(\phi)$, $i$, $\varphi$)}
+\label{Algo:VPSPupdate}
+\begin{algorithmic}[1]
+\For {$y$ $\gets$ 1 até $k$}
+  \State \dymGraphDelEdge($G(\phi)$, $(i,y)$, $(i+1,\phi_i(y)$))
+\EndFor
+\For {$y$ $\gets$ 1 até $k$}
+  \State \dymGraphAddEdge($G(\phi)$, $(i,y)$, $(i+1,\varphi(y)$))
+\EndFor
+\State $G(\phi)$.$\phi_i$ $\gets$ $\varphi$ 
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{\VPSPverify($G(\phi)$, $i$, $\varphi$)}
+\label{Algo:VPSPverify}
+\begin{algorithmic}[1]
+\For {$y$ $\gets$ 1 até $k$}
+  \If {\textbf{não} \dymGraphQuery($G(\phi)$, $(1,y)$, $(i+1,\varphi(y)$))}
+    \State \Return falso
+  \EndIf
+\EndFor
+\State \Return verdadeiro
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
 \subsection{Limitante inferior para conexidade em grafos dinâmicos}
+\begin{frame}{Grafo dual}
+Adotando $\delta = \Theta(k\cdot b)$.
+\begin{equation}
+\Omega\left( \frac{\delta}{b}\lg p \right)\implies \Omega\left(\frac{k\cdot b}{b}\lg p\right)\implies \Omega(k\lg p).\label{eq:lim-kp}
+\end{equation}
+Especificamente, escolheremos a família em que~$k = p-1$.
+Para essa escolha, temos
+$$
+n =k\cdot (p+1) =(p-1)\cdot  (p+1) =p^2-1.
+$$
+Dessa forma, teremos:
+$$
+\Omega(k \lg p) = \Omega(k\cdot  2\cdot \lg p) = \Omega(k \lg p^2) = \Omega(k \lg n).\nonumber 
+$$
+\end{frame}
+
+\begin{frame}{Grafo dual}
+Para concluirmos, note que $\Omega(k\lg n)$ limita inferiormente o consumo de tempo das rotinas \VPSPupdate{} e \VPSPverify{}. O algoritmo \VPSPupdate{} faz~$k$ remoções e inserções de arestas e \VPSPverify{} faz~$k$ consultas de conexidade. Logo se denotarmos por $t_m$ a soma do consumo de tempo de uma execução de \dymGraphAddEdge{} e \dymGraphDelEdge{} e $t_c$ o consumo de tempo de \dymGraphQuery{}, então deduzimos que $t_u = k t_m$ e $t_q = k t_c$. Substituindo esses valores no Teorema~\ref{theo:lim}, teremos:
+\begin{align*}
+\min\{t_u,t_q\}\lg \left( \frac{\max\{t_u,t_q\}}{\min\{t_u,t_q\}}\right) &= \Omega\left(\frac{\delta}{b}\lg p\right)&\implies\\
+\min\{k t_m,k t_c\}\lg \left( \frac{\max\{k t_m,k t_c\}}{\min\{k t_m,k t_c\}}\right) &= \Omega(k \lg n)&\implies\\
+k\min\{ t_m, t_c\}\lg \left( \frac{\max\{ t_m, t_c\}}{\min\{ t_m,t_c\}}\right) &= \Omega(k \lg n).
+\end{align*}
+Portanto obtemos o seguinte limitante amortizado: 
+$$
+\min\{ t_m, t_c\}\lg \left( \frac{\max\{ t_m, t_c\}}{\min\{ t_m,t_c\}}\right) = \Omega(\lg n)
+$$
+para cada uma das chamadas das operações de conexidade em grafos dinâmicos.
+\end{frame}
+
 
 
 \section{Bibliografia}
