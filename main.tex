@@ -342,7 +342,7 @@ Para solucionar esse problema, vamos apresentar a estrutura de dados proposta po
 \item  \treapCreate($u$, $v$): retorna uma ABB com um único nó com valor uv;
 \item \treapJoin($T$, $R$): junta as ABBs $T$ e $R$ concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
 \item \treapSplit($\node$): corta a ABB que contém um nó~$\node$ em três ABBs. A primeira ABB contém todos os nós com chave estritamente menor do que a chave de~$\node$, a segunda contém somente~$\node$ e a última contém todos os nós com chave estritamente maior do que a chave de~$\node$. Essa rotina retorna as raízes dessas três ABBs; e
-\item \treapGetRoot($x$): retorna a raiz da ABB que contém $x$;
+\item \treapGetRoot($\node$): retorna a raiz da ABB que contém $\node$;
 \end{itemize}
 \end{exampleblock}
 \boxpurple{\centering  \treapCreate{}:~$\O{1}$.\\ As demais operações :~$\O{\lg n}$.}
@@ -447,18 +447,6 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 }
 \end{frame}
 
-\subsection{Treaps}
-\begin{frame}{Uma treap imersa no plano cartesiano.}
-\boxblue{
-\centering
-Cada nó de uma treap possui um par ordenado \textbf{(chave, prioridade)}
-}
-\begin{figure}[htb]
-\centering
-\scalebox{.45}{
-\input{fig/TREAP.tex}}
-\end{figure}
-\end{frame}
 
 % --------------------------------------------------- %
 %      Conexidade em grafos dinâmicos              %
@@ -533,7 +521,7 @@ Para solucionar esse problema, vamos apresentar a estrutura de dados proposta po
 
 
 \begin{frame}{Remoção de arestas}
-\begin{block}{Estrutura de níveis}
+\begin{block}{Busca por substituição de uma aresta}
 \begin{itemize}
     \item Cada aresta possui um \defi{nível}, que é um inteiro entre~$1$ e $\lceil \log n \rceil$;
     \item Arestas serão inseridas no nível~$\lceil \log n \rceil$;
@@ -560,7 +548,7 @@ $G_{\leqslant i}$: grafo com arestas de nível $\leqslant i$. Para cada camada $
 \begin{exampleblock}{Adaptações}
 \centering
 $G.F\rightarrow G.F_{\leqslant \lceil \log n \rceil}$\\
-$G.R\rightarrow G.R_{\leqslant \lceil \log n \rceil}$
+$G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \end{exampleblock}
 \begin{algorithm}[H]
 \caption{\dymGraphDelEdge($G$, $u$, $v$)}
@@ -570,7 +558,7 @@ $G.R\rightarrow G.R_{\leqslant \lceil \log n \rceil}$
 \State \nivel[$u,v$] $\gets$ $\Nil$
 \If {$uv$ $\in G.F_{\leqslant\lceil \lg n \rceil}$}\label{Algo:dymGraphDelEdge:linha:if}
 \For {$j$ $\gets$ $i$ até $\lceil \lg n \rceil$}\label{linha2}
-\State \dymForestDelEdge($G$.$F_j$, $u$, $v$)
+\State \dymForestDelEdge($G$.$F_{\leqslant j}$, $u$, $v$)
 \EndFor
 \State \dymGraphReplace($G$, $u$, $v$, $i$)
 \Else
@@ -710,7 +698,7 @@ Uma \defi{descrição combinatória plana} de~$G$ é uma lista de todas essas or
 D(u)&=\langle (a,v), (b,v), (c,z))\rangle\\
 D(v)&=\langle (a,u), (d,z), (b,u)  \rangle\\
 D(z)&=\langle (c,u), (d,v), (g,y) \rangle \\
-D(y)&=\langle (e,z), (f,y), (f,y) \rangle
+D(y)&=\langle (g,z), (f,y), (f,y) \rangle
 \end{align*}
 \begin{align*}
 D(F_0)&=\langle (a^\star, F_2), (c^\star, F_1), \\
@@ -817,7 +805,7 @@ Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ se
 \end{figure}
 \begin{block}{Óctupla de $e$}
 Há $8$ nós de link cut tree para cada aresta $e$ de~$G$.
-Chamaremos esses~$8$ de \defi{óctupla de $e$}.
+Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 \end{block}
 \end{frame}
 
@@ -1014,15 +1002,6 @@ Esse limitante é válido mesmo para implementações aleatorizadas e/ou amortiz
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Verificação de soma parcial em~$S_k$}
-O grupo $S_k$ é o grupo finito formado pelo conjunto de todas as bijeções sobre o conjunto~${[k]:=\{1,2,\ldots,k\}}$ munido da operação de composição de funções~\cite{agozine2010}.
-\begin{figure}[htb]
-\centering
-\input{fig/LIM-exemplo-uma-perm}
-\label{fig:LIM-exemplo-uma-perm}
-\end{figure}
-\end{frame}
-
 \begin{frame}{Grafo dual}
 \begin{figure}[htb]
 \centering
@@ -1066,81 +1045,6 @@ onde cada célula possui $b$ bits e são necessários $\delta$ bits para represe
 \end{figure}
 \end{frame}
 
-\begin{frame}{Rotina para converter uma instância de VSP$S_k$ em uma instância de conexidade em grafos dinâmicos}
-\begin{algorithm}[H]
-\caption{\VPSPconvert($\phi$, $p$, $k$)}
-\label{Algo:VPSPconvert}
-\begin{algorithmic}[1]
-\State $G(\phi)$ $\gets$ \dymGraphCreate($(p+1)\cdot k)$
-\State $G(\phi).\phi$ $\gets$ $\phi$
-\For {$x$ $\gets$ 1 até $p+1$}
-  \For {$y$ $\gets$ 1 até $k$}
-    \State \dymGraphAddEdge($G(\phi)$, $(x,~y)$, $(x+1, ~\phi_x(y))$)
-  \EndFor
-\EndFor
-\State \Return $G(\phi)$
-\end{algorithmic}
-\end{algorithm}
-\end{frame}
-
-\begin{frame}{Grafo dual}
-\begin{algorithm}[H]
-\caption{\VPSPupdate($G(\phi)$, $i$, $\varphi$)}
-\label{Algo:VPSPupdate}
-\begin{algorithmic}[1]
-\For {$y$ $\gets$ 1 até $k$}
-  \State \dymGraphDelEdge($G(\phi)$, $(i,y)$, $(i+1,\phi_i(y)$))
-\EndFor
-\For {$y$ $\gets$ 1 até $k$}
-  \State \dymGraphAddEdge($G(\phi)$, $(i,y)$, $(i+1,\varphi(y)$))
-\EndFor
-\State $G(\phi)$.$\phi_i$ $\gets$ $\varphi$ 
-\end{algorithmic}
-\end{algorithm}
-\begin{algorithm}[H]
-\caption{\VPSPverify($G(\phi)$, $i$, $\varphi$)}
-\label{Algo:VPSPverify}
-\begin{algorithmic}[1]
-\For {$y$ $\gets$ 1 até $k$}
-  \If {\textbf{não} \dymGraphQuery($G(\phi)$, $(1,y)$, $(i+1,\varphi(y)$))}
-    \State \Return falso
-  \EndIf
-\EndFor
-\State \Return verdadeiro
-\end{algorithmic}
-\end{algorithm}
-\end{frame}
-
-\subsection{Limitante inferior para conexidade em grafos dinâmicos}
-\begin{frame}{Grafo dual}
-Adotando $\delta = \Theta(k\cdot b)$.
-\begin{equation}
-\Omega\left( \frac{\delta}{b}\lg p \right)\implies \Omega\left(\frac{k\cdot b}{b}\lg p\right)\implies \Omega(k\lg p).\label{eq:lim-kp}
-\end{equation}
-Especificamente, escolheremos a família em que~$k = p-1$.
-Para essa escolha, temos
-$$
-n =k\cdot (p+1) =(p-1)\cdot  (p+1) =p^2-1.
-$$
-Dessa forma, teremos:
-$$
-\Omega(k \lg p) = \Omega(k\cdot  2\cdot \lg p) = \Omega(k \lg p^2) = \Omega(k \lg n).\nonumber 
-$$
-\end{frame}
-
-\begin{frame}{Grafo dual}
-Para concluirmos, note que $\Omega(k\lg n)$ limita inferiormente o consumo de tempo das rotinas \VPSPupdate{} e \VPSPverify{}. O algoritmo \VPSPupdate{} faz~$k$ remoções e inserções de arestas e \VPSPverify{} faz~$k$ consultas de conexidade. Logo se denotarmos por $t_m$ a soma do consumo de tempo de uma execução de \dymGraphAddEdge{} e \dymGraphDelEdge{} e $t_c$ o consumo de tempo de \dymGraphQuery{}, então deduzimos que $t_u = k t_m$ e $t_q = k t_c$.
-\begin{align*}
-\min\{t_u,t_q\}\lg \left( \frac{\max\{t_u,t_q\}}{\min\{t_u,t_q\}}\right) &= \Omega\left(\frac{\delta}{b}\lg p\right)&\implies\\
-\min\{k t_m,k t_c\}\lg \left( \frac{\max\{k t_m,k t_c\}}{\min\{k t_m,k t_c\}}\right) &= \Omega(k \lg n)&\implies\\
-k\min\{ t_m, t_c\}\lg \left( \frac{\max\{ t_m, t_c\}}{\min\{ t_m,t_c\}}\right) &= \Omega(k \lg n).
-\end{align*}
-Portanto obtemos o seguinte limitante amortizado: 
-$$
-\min\{ t_m, t_c\}\lg \left( \frac{\max\{ t_m, t_c\}}{\min\{ t_m,t_c\}}\right) = \Omega(\lg n)
-$$
-para cada uma das chamadas das operações de conexidade em grafos dinâmicos.
-\end{frame}
 
 
 
