@@ -238,7 +238,7 @@
   \vfill
   \centering
   \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
+    \usebeamerfont{title}\secname\par%
   \end{beamercolorbox}
   \vfill
   \end{frame}
