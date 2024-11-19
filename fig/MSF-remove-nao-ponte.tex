@@ -1,9 +1,9 @@
-\begin{tikzpicture}[line cap=round,line join=round,x=1cm,y=1cm]
+\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
 \clip(-1,-1) rectangle (6,3);
 
 
 \draw [line width=1pt] (0,0) to[in=-135,out=135,looseness=1]  (0,2); % v -- u
-\draw [line width=1pt] (0,0) to[in=-45,out=45,looseness=1]  (0,2);   % v -- u
+%\draw [line width=1pt] (0,0) to[in=-45,out=45,looseness=1]  (0,2);   % v -- u
 \draw [line width=1pt] (2,1) to  (0,0); % 4 -- 6
 \draw [line width=1pt] (2,1) to  (0,2); % 4 -- 6
 \draw [line width=1pt] (2,1) to  (3,1); % 4 -- 6
@@ -31,43 +31,43 @@
 
 \begin{scriptsize}
 \draw [fill=black] (0,2) circle (1.5pt);
-\draw (0,2) node[anchor=south east] {{\Large $u$}};
+\draw (0,2) node[anchor=south east] {$u$};
 
 
 \draw [fill=black] (0,0) circle (1.5pt);
-\draw (0,0) node[anchor=north east] {{\Large $v$}};
+\draw (0,0) node[anchor=north east] {$v$};
 \draw [fill=black] (2,1) circle (1.5pt);
-\draw (2,1.1) node[anchor=south] {{\Large $z$}};
+\draw (1.95,1) node[anchor=south] {$z$};
 \draw [fill=black] (3,1) circle (1.5pt);
-\draw (2.95,1) node[anchor=south] {{\Large $y$}};
+\draw (2.95,1) node[anchor=south] {$y$};
 
 
 \draw [fill=black] (1,2.5) circle (1.5pt);
-\draw (1,2.5) node[anchor=south east] {{\Large $F_0$}};
+\draw (1,2.5) node[anchor=south east] {$F_0$};
 \draw [fill=black] (1,1) circle (1.5pt);
-\draw (1.1,1) node[anchor=west] {{\Large $F_1$}};
-\draw [fill=black] (0,1) circle (1.5pt);
-\draw (0,1) node[anchor=south] {{\Large $F_2$}};
+\draw (1,1) node[anchor=west] {$F_6$};
+%\draw [fill=black] (0,1) circle (1.5pt);
+%\draw (0,1) node[anchor=south] {$F_2$};
 \draw [fill=black] (3.5,1) circle (1.5pt);
-\draw (3.5,1) node[anchor=west] {{\Large $F_3$}};
+\draw (3.5,1) node[anchor=west] {$F_3$};
 
-\draw (-.6,1.05) node[anchor=north] {{\Large $a$}};
-%\draw (-0.5,1.1) node[anchor=north] {{\Large $2$}};
+\draw (-0.5,1.05) node[anchor=north] {$a$};
+%\draw (-0.5,1.1) node[anchor=north] {$2$};
 
-\draw (0.7,1.4) node[anchor=north] {{\Large $b$}};
-%\draw (0.5,1.05) node[anchor=north] {{\Large $7$}};
+%\draw (0.5,1.35) node[anchor=north] {$b$};
+%\draw (0.5,1.05) node[anchor=north] {$7$};
 
-\draw (1.15,1.85) node[anchor=north] {{\Large $c$}}; % u -- w
-%\draw (1.4,1.7) node[anchor=north] {{\Large $3$}}; % u -- w
+\draw (1.15,1.7) node[anchor=north] {$c$}; % u -- w
+%\draw (1.4,1.7) node[anchor=north] {$3$}; % u -- w
 
-\draw (1.1,.5) node[anchor=north] {{\Large $d$}}; % v -- w
-%\draw (1.2,.65) node[anchor=north] {{\Large $1$}}; % v -- w
+\draw (1.1,.6) node[anchor=north] {$d$}; % v -- w
+%\draw (1.2,.65) node[anchor=north] {$1$}; % v -- w
 
-\draw (2.3,1) node[anchor=north] {{\Large $g$}}; % v -- w
-%\draw (2.3,.95) node[anchor=north] {{\Large $4$}}; % v -- w
+\draw (2.3,1.35) node[anchor=north] {$g$}; % v -- w
+%\draw (2.3,.95) node[anchor=north] {$4$}; % v -- w
 
-\draw (4.15,1) node {{\Large $f$}}; % w -- w
-%\draw (4.15,1) node {{\Large $2$}}; % w -- w
+\draw (4.15,1) node {$f$}; % w -- w
+%\draw (4.15,1) node {$2$}; % w -- w
 
 \end{scriptsize}
 \end{tikzpicture}

@@ -1,0 +1,47 @@
+\begin{tikzpicture}[line cap=round,line join=round,x=1cm,y=1cm]
+\clip(-.3,0) rectangle (8,5.6);
+
+\begin{scriptsize}
+
+
+\draw [line width=1pt,color=cyan] (.35,.35) to  (1.05,1.75); 
+\draw [line width=1pt,color=cyan] (.3,3.7) to  (1.05,2.25); 
+\draw [line width=1pt,color=cyan] (4.3,2) to (6.5,2); 
+\draw [line width=1pt,color=red] (3.3,4.7) to  (5.25,2.25);
+\draw [line width=1pt,color=red] (4,5) to[in=-20,out=10,looseness=3]  (5.25,1.75); 
+\draw [line width=1pt,color=red] (1.7,2) to  (.2,2); 
+\draw (5,2)[anchor=south] node {\normalsize $g_0$};
+\draw [fill=white] (5,2)circle (1.5pt);
+\draw (5.7,2)[anchor=south] node {\normalsize $g_2$};
+\draw [fill=white] (5.5,2)circle (1.5pt);
+\draw (5.4,2.25)[anchor=south] node {\normalsize $g_3$};
+\draw [fill=white] (5.25,2.25)circle (1.5pt);
+\draw (5.25,1.75)[anchor=north] node {\normalsize $g_1$};
+\draw [fill=white] (5.25,1.75)circle (1.5pt);
+\draw (4.3,2.2) node {\normalsize $g_z$};
+\draw [fill=black] (4.3,2)circle (1.5pt);
+\draw (4,5)[anchor=east] node {\normalsize $g_{F_0}$};
+\draw [fill=black] (4,5)circle (1.5pt);
+\draw (3.3,4.7)[anchor=east] node {\normalsize $g_{F_0}$};
+\draw [fill=black] (3.3,4.7)circle (1.5pt);
+\draw (6.5,1.8) node {\normalsize $g_y$};
+\draw [fill=black] (6.5,2)circle (1.5pt);
+
+\draw (1.25,2.33) node {\normalsize $b_0$};
+\draw [fill=white] (1.05,2.25) circle (1.5pt);
+\draw (.8,2.16) node {\normalsize $b_1$};
+\draw [fill=white] (.8,2) circle (1.5pt);
+\draw (1,1.65)[anchor=west] node {\normalsize $b_2$};
+\draw [fill=white] (1.05,1.75) circle (1.5pt);
+\draw (1.45,1.8) node {\normalsize $b_3$};
+\draw [fill=white] (1.3,2)circle (1.5pt);
+\draw (.35,.35)[anchor=west] node {\normalsize $b_v$};
+\draw [fill=black] (.35,.35) circle (1.5pt);
+\draw (.3,3.7) node[anchor=west] {\normalsize $b_u$};
+\draw [fill=black] (.3,3.7) circle (1.5pt);
+\draw (.2,2) node[anchor=east] {\normalsize $b_{F_2}$};
+\draw [fill=black] (.2,2) circle (1.5pt);
+\draw (1.7,2) node[anchor=west] {\normalsize $b_{F_1}$};
+\draw [fill=black] (1.7,2)circle (1.5pt);
+\end{scriptsize}
+\end{tikzpicture}
