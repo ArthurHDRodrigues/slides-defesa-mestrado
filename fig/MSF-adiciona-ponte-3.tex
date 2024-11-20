@@ -6,7 +6,7 @@
 %
 % Node v
 %
-\draw (0,0) node {$\hat v$};
+%\draw (0,0) node {$\hat v$};
 \draw [line width=1pt,color=cyan] (0,.5) to  (.35,.35); 
 \draw [line width=1pt,color=cyan] (.35,.35) to  (.5,0); 
 \draw [line width=1pt,color=cyan] (0,.5) to  (.5,-.5); 
@@ -17,33 +17,33 @@
 \draw [line width=1pt,color=cyan] (.5,-.5) to  (5,.5); 
 
 
-\draw (0,.5)[anchor=east] node {\tiny $a_v$};
-\draw (.35,.35)[anchor=west] node {\tiny $b_v$};
-\draw (.5,0)[anchor=north west] node {\tiny $d_v$};
-\draw (.5,-.5)[anchor=east] node {\tiny $h_v$};
+\draw (0,.5)[anchor=east] node {\normalsize $a_v$};
+\draw (.35,.35)[anchor=west] node {\normalsize $b_v$};
+\draw (.5,0)[anchor=north west] node {\normalsize $d_v$};
+\draw (.5,-.5)[anchor=east] node {\normalsize $h_v$};
 \draw [fill=black] (0,.5) circle (1.5pt);
 \draw [fill=black] (.35,.35) circle (1.5pt);
 \draw [fill=black] (.5,0) circle (1.5pt);
 \draw [fill=black] (.5,-.5) circle (1.5pt);
 
-\draw (-.6,1.9) node[anchor=north east] {\tiny $a_0$};
+%\draw (-.6,1.9) node[anchor=north east] {\normalsize $a_0$};
 \draw [fill=white] (-1,1.8) circle (1.5pt);
 
 %h 
 \draw [line width=1pt,color=cyan] (5.5,1) to  (5,.5); 
-\draw (5,.5)[anchor=south] node {\tiny $h_0$};
+\draw (5,0)[anchor=south] node {\normalsize $h_0$};
 \draw (5,.5)[fill=white] circle (1.5pt);
 % ^b
 \draw [line width=1pt,color=cyan] (2.5,1) to (2.9,1.15); 
-\draw (1,1.65)[anchor=west] node {\tiny $b_2$};
+%\draw (1,1.65)[anchor=west] node {\normalsize $b_2$};
 \draw [fill=white] (1.05,1.75) circle (1.5pt);
-%\draw (2.5,1)[anchor=north] node {\tiny $d_0$};
+%\draw (2.5,1)[anchor=north] node {\normalsize $d_0$};
 \draw [fill=white] (2.5,1) circle (1.5pt);
 
 %
 % Node u
 %
-\draw (0,4) node {$\hat u$};
+%\draw (0,4) node {$\hat u$};
 
 \draw [line width=1pt,color=cyan] (0,3.5) to  (.3,3.7); 
 \draw [line width=1pt,color=cyan] (.5,4) to  (.3,3.7); 
@@ -52,27 +52,27 @@
 \draw [line width=1pt,color=cyan] (.3,3.7) to  (1.05,2.25); 
 \draw [line width=1pt,color=cyan] (.5,4) to  (2.5,3); 
 
-\draw (-1.1,2.35) node {\tiny $a_2$};
+%\draw (-1.1,2.35) node {\normalsize $a_2$};
 \draw [fill=white] (-1,2.2) circle (1.5pt);
-\draw (1.2,2.33) node {\tiny $b_0$};
+%\draw (1.2,2.33) node {\normalsize $b_0$};
 \draw [fill=white] (1.05,2.25) circle (1.5pt);
 
 % u node path
-\draw (-.2,3.5) node {\tiny $a_u$};
+\draw (-.25,3.5) node {\normalsize $a_u$};
 \draw [fill=black] (0,3.5) circle (1.5pt);
-\draw (.5,4.15) node {\tiny $c_u$};
+\draw (.5,4.15) node {\normalsize $c_u$};
 \draw [fill=black] (.5,4) circle (1.5pt);
-\draw (.19,3.82) node {\tiny $b_u$};
+\draw (.17,3.87) node {\normalsize $b_u$};
 \draw [fill=black] (.3,3.7) circle (1.5pt);
 
 %
 % Node z
 %
-\draw (3.8,2) node {$\hat z$};
+%\draw (3.8,2) node {$\hat z$};
 %\draw [line width=1pt,color=cyan] (4.3,2) to (6.5,2); 
 \draw [line width=1pt,color=cyan] (3.7,2.3) to (2.5,3); 
 \draw [line width=1pt,color=cyan] (3.7,1.7) to (2.9,1.15); 
-%\draw (2.4,2.9) node {\tiny $c_2$};
+%\draw (2.4,2.9) node {\normalsize $c_2$};
 \draw [fill=white] (2.5,3) circle (1.5pt);
 
 
@@ -81,16 +81,16 @@
 %\draw [line width=1pt,color=cyan] (3.7,1.7) to  (4.3,2); 
 
 
-\draw (3.75,1.55) node {\tiny $d_z$};
+%\draw (3.75,1.55) node {\normalsize $d_z$};
 \draw [fill=black] (3.7,1.7)circle (1.5pt);
-\draw (3.7,2.43) node {\tiny $c_z$};
+%\draw (3.7,2.43) node {\normalsize $c_z$};
 \draw [fill=black] (3.7,2.3)circle (1.5pt);
-%\draw (4.3,2.2) node {\tiny $g_z$};
+%\draw (4.3,2.2) node {\normalsize $g_z$};
 %\draw [fill=black] (4.3,2)circle (1.5pt);
 
-%\draw (3.2,2.7) node {\tiny $c_0$};
+%\draw (3.2,2.7) node {\normalsize $c_0$};
 \draw [fill=white] (3,2.7)circle (1.5pt);
-%\draw (3.05,1.25)[anchor=north] node {\tiny $d_2$};
+%\draw (3.05,1.25)[anchor=north] node {\normalsize $d_2$};
 \draw [fill=white] (2.9,1.15)circle (1.5pt);
 
 %eF0 -- e3
@@ -100,7 +100,7 @@
 %
 % Node F_0
 %
-\draw (3,5.2) node {$\hat F_0$};
+%\draw (3,5.2) node {$\hat F_0$};
 %\draw [line width=1pt,color=red] (2.7,4.7) to  (3.8,4.7); 
 \draw [line width=1pt,color=red] (2.5,5) to  (2.7,4.7); 
 \draw [line width=1pt,color=red] (3.5,5) to  (2.7,4.7); 
@@ -112,9 +112,9 @@
 %^c
 \draw [line width=1pt,color=red] (2.7,4.7) to  (2.9,3.1);
 
-%\draw (3.07,3.1) node {\tiny $c_1$};
+%\draw (3.07,3.1) node {\normalsize $c_1$};
 \draw [fill=white] (2.9,3.1)circle (1.5pt);
-%\draw (2.9,.7) node {\tiny $d_1$};
+%\draw (2.9,.7) node {\normalsize $d_1$};
 \draw [fill=white] (2.8,.85)circle (1.5pt);
 
 
@@ -132,40 +132,40 @@
 
 \draw [line width=1pt,color=red] (6.5,4.7) to  (4.5,5);
 
-\draw (6.65,4.05) node {\tiny $f_3$};
+%\draw (6.65,4.05) node {\normalsize $f_3$};
 \draw [fill=white] (6.5,3.95)circle (1.5pt);
-\draw (6.65,3.55) node {\tiny $f_1$};
+%\draw (6.65,3.55) node {\normalsize $f_1$};
 \draw [fill=white] (6.5,3.65)circle (1.5pt);
-\draw (6.8,3.8) node {\tiny $f_2$};
+%\draw (6.8,3.8) node {\normalsize $f_2$};
 \draw [fill=white] (6.65,3.8)circle (1.5pt);
-\draw (6.2,3.8) node {\tiny $f_0$};
+%\draw (6.2,3.8) node {\normalsize $f_0$};
 \draw [fill=white] (6.35,3.8)circle (1.5pt);
-\draw (4.8,1) node {\tiny $h_3$};
+\draw (4.8,1) node {\normalsize $h_3$};
 \draw [fill=white] (5,1)circle (1.5pt);
 
 
 
-\draw (2.5,5)[anchor=south] node {\tiny $a_{F_0}$};
+\draw (2.5,5)[anchor=south] node {\normalsize $a_{F_0}$};
 \draw [fill=black] (2.5,5)circle (1.5pt);
-\draw (2.5,4.5) node {\tiny $c_{F_0}$};
+\draw (2.5,4.5) node {\normalsize $c_{F_0}$};
 \draw [fill=black] (2.7,4.7)circle (1.5pt);
-\draw (3.5,5)[anchor=south] node {\tiny $d_{F_0}$};
+\draw (3.5,5)[anchor=south] node {\normalsize $d_{F_0}$};
 \draw [fill=black] (3.5,5)circle (1.5pt);
-\draw (4.5,5)[anchor=south] node {\tiny $h_{F_0}$};
+\draw (4.5,5)[anchor=south] node {\normalsize $h_{F_0}$};
 \draw [fill=black] (4.5,5)circle (1.5pt);
-\draw (6.5,4.7)[anchor=south] node {\tiny $f_{F_4}$};
+\draw (6.5,4.7)[anchor=south] node {\normalsize $f_{F_4}$};
 \draw [fill=black] (6.5,4.7)circle (1.5pt);
-%\draw (3.3,4.7)[anchor=north] node {\tiny $g_{F_0}$};
+%\draw (3.3,4.7)[anchor=north] node {\normalsize $g_{F_0}$};
 %\draw [fill=black] (3.3,4.7)circle (1.5pt);
-\draw (7,4.7)[anchor=south] node {\tiny $h_{F_4}$};
+\draw (7,4.7)[anchor=south] node {\normalsize $h_{F_4}$};
 \draw [fill=black] (7,4.7)circle (1.5pt);
-\draw (5.5,.5)[anchor=north] node {\tiny $h_1$};
+\draw (5.5,.5)[anchor=north] node {\normalsize $h_1$};
 \draw [fill=white] (5.5,.5)circle (1.5pt);
 
 %
 % Node y
 %
-\draw (6.5,2.3) node {$\hat y$};
+%\draw (6.5,2.3) node {$\hat y$};
 
 %node path
 \draw [line width=1pt,color=cyan] (6.8,2.5) to  (6.2,2.5); 
@@ -174,15 +174,15 @@
 \draw [line width=1pt,color=cyan] (6.5,2) to  (5.5,1); 
 
 
-\draw (6.7,2) node {\tiny $h_y$};
-\draw (6,2.5) node {\tiny $f_y$};
-\draw (7,2.5) node {\tiny $f_y$};
+\draw (6.7,2) node {\normalsize $h_y$};
+\draw (6,2.5) node {\normalsize $f_y$};
+\draw (7,2.5) node {\normalsize $f_y$};
 \draw [fill=black] (6.5,2)circle (1.5pt);
 \draw [fill=black] (6.2,2.5)circle (1.5pt);
 \draw [fill=black] (6.8,2.5)circle (1.5pt);
 
 
-\draw (5.5,.8) node {\tiny $h_2$};
+\draw (5.45,1.2) node {\normalsize $h_2$};
 \draw [fill=white] (5.5,1)circle (1.5pt);
 %
 % Node F_1
@@ -199,55 +199,55 @@
 % F_1 to F_2
 \draw [line width=1pt,color=red] (.8,2) to  (1.3,2); 
 
-\draw (1.8,2.13) node {\tiny $b_{F_1}$};
+%\draw (1.8,2.13) node {\normalsize $b_{F_1}$};
 \draw [fill=black] (1.7,2)circle (1.5pt);
-%\draw (2.3,1.7)[anchor=north] node {\tiny $d_{F_1}$};
+%\draw (2.3,1.7)[anchor=north] node {\normalsize $d_{F_1}$};
 \draw [fill=black] (2.3,1.7)circle (1.5pt);
-%\draw (2.25,2.2)[anchor=west] node {\tiny $c_{F_1}$};
+%\draw (2.25,2.2)[anchor=west] node {\normalsize $c_{F_1}$};
 \draw [fill=black] (2.3,2.3)circle (1.5pt);
-\draw (1.4,1.85) node {\tiny $b_3$};
+%\draw (1.4,1.85) node {\normalsize $b_3$};
 \draw [fill=white] (1.3,2)circle (1.5pt);
 
-%\draw (2.8,1.4) node {\tiny $d_3$};
+%\draw (2.8,1.4) node {\normalsize $d_3$};
 \draw [fill=white] (2.6,1.3)circle (1.5pt);
-%\draw (2.75,2.55) node {\tiny $c_3$};
+%\draw (2.75,2.55) node {\normalsize $c_3$};
 \draw [fill=white] (2.6,2.6)circle (1.5pt);
 
 %
 % Node F_2
 %
-\draw (0,2.2) node {$\hat F_2$};
+%\draw (0,2.2) node {$\hat F_2$};
 
 \draw [line width=1pt,color=red] (-1.2,2) to  (-.3,2); 
 \draw [line width=1pt,color=red] (.8,2) to  (.3,2);   
 \draw [line width=1pt,color=red] (-.3,2) to (.3,2);   
 
 \draw [fill=black] (-.2,2) circle (1.5pt);
-\draw (-.2,1.8) node {\tiny $a_{F_2}$};
+%\draw (-.2,1.8) node {\normalsize $a_{F_2}$};
 \draw [fill=black] (.2,2) circle (1.5pt);
-\draw (.3,1.8) node {\tiny $b_{F_2}$};
-\draw (-.75,2.1) node {\tiny $a_1$};
+%\draw (.3,1.8) node {\normalsize $b_{F_2}$};
+%\draw (-.75,2.1) node {\normalsize $a_1$};
 \draw [fill=white] (-.8,2) circle (1.5pt);
-\draw (.8,2.16) node {\tiny $b_1$};
+%\draw (.8,2.16) node {\normalsize $b_1$};
 \draw [fill=white] (.8,2) circle (1.5pt);
 
-\draw (-1.3,1.9) node {\tiny $a_3$};
+%\draw (-1.3,1.9) node {\normalsize $a_3$};
 \draw [fill=white] (-1.2,2)circle (1.5pt);
 
 %
 % Node F_3
 %
 %\draw (6.7,3.2) node {$\hat F_3$};
-\draw (6.3,3) node {\tiny $f_{F_3}$};
+%\draw (6.3,3) node {\normalsize $f_{F_3}$};
 \draw [fill=black] (6.5,3)circle (1.5pt);
 
-%\draw (5,2)[anchor=south] node {\tiny $g_0$};
+%\draw (5,2)[anchor=south] node {\normalsize $g_0$};
 %\draw [fill=white] (5,2)circle (1.5pt);
-%\draw (5.5,2)[anchor=south] node {\tiny $g_2$};
+%\draw (5.5,2)[anchor=south] node {\normalsize $g_2$};
 %\draw [fill=white] (5.5,2)circle (1.5pt);
-%\draw (5.25,2.25)[anchor=south] node {\tiny $g_3$};
+%\draw (5.25,2.25)[anchor=south] node {\normalsize $g_3$};
 %\draw [fill=white] (5.25,2.25)circle (1.5pt);
-%\draw (5.25,1.75)[anchor=north] node {\tiny $g_1$};
+%\draw (5.25,1.75)[anchor=north] node {\normalsize $g_1$};
 %\draw [fill=white] (5.25,1.75)circle (1.5pt);
 
 \draw [fill=white] (-1.2,2)circle (1.5pt);

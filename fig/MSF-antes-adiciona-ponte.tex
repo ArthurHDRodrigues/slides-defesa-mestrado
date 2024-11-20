@@ -1,7 +1,6 @@
 \begin{tikzpicture}[line cap=round,line join=round,x=1cm,y=1cm]
-\clip(-3,-1) rectangle (6,4);
+\clip(-1,-1) rectangle (6,3.5);
 
-\draw (2.5,3.5) node {\Large DEPOIS};
 
 \draw [line width=1pt] (0,0) to[in=-135,out=135,looseness=1]  (0,2); % v -- u
 \draw [line width=1pt] (0,0) to[in=-45,out=45,looseness=1]  (0,2);   % v -- u
@@ -12,8 +11,8 @@
 
 
 \draw [line width=1pt] (1,2.5) to[out=-45,in=45,looseness=1] (1,1); % c: F0 -- F1
-\draw [line width=1pt] (1,2.5) to[out=0,in=90,looseness=1] (2.3,1.5); % d: F0 -- F1
-\draw [line width=1pt] (1,1) to[out=-55,in=-90,looseness=2] (2.3,1.5); % d: F0 -- F1
+\draw [line width=1pt] (1,2.5) to[out=0,in=90,looseness=1] (2.5,1); % d: F0 -- F1
+\draw [line width=1pt] (1,1) to[out=-55,in=-90,looseness=2] (2.5,1); % d: F0 -- F1
 
 
 % laço F0 para F0
@@ -23,16 +22,12 @@
 
 
 \draw [line width=1pt] (1,2.5) to[out=170,in=180,looseness=2.5] (0,1); % F0 -- F2
-\draw [line width=1pt] (1,2.5) to[out=30,in=90,looseness=1] (3.5,1); % F0 -- F3
+\draw [line width=1pt] (3.5,2) to (3.5,1); % F0 -- F3
 \draw [line width=1pt] (1,1) to (0,1); % F1 -- F2
 
 
-\draw [line width=1pt] (1,2.5) to[out=70,in=90,looseness=.8] (4.7,1); % F0 -- F3
-\draw [line width=1pt] (4.7,1) to[out=-90,in=-90,looseness=2] (2.5,1); % F0 -- F3
-\draw [line width=1pt] (1,2.5) to[out=20,in=90,looseness=1.3] (2.5,1); % F0 -- F3
 
-\draw [line width=1pt] (0,0) to[out=0,in=-90,looseness=1] (3,1); % F0 -- F1
-
+\draw (2.5,3) node {\Large ANTES};
 
 \begin{scriptsize}
 \draw [fill=black] (0,2) circle (1.5pt);
@@ -48,15 +43,15 @@
 
 
 \draw [fill=black] (1,2.5) circle (1.5pt);
-\draw (1,2.5) node[anchor=south east] {\Large $F_6$};
+\draw (1,2.5) node[anchor=south east] {\Large $F_4$};
 \draw [fill=black] (1,1) circle (1.5pt);
 %\draw (1,1) node[anchor=west] {\Large $F_1$};
 \draw [fill=black] (0,1) circle (1.5pt);
 %\draw (0,1) node[anchor=south] {\Large $F_2$};
 \draw [fill=black] (3.5,1) circle (1.5pt);
 %\draw (3.5,1) node[anchor=west] {\Large $F_3$};
-%\draw [fill=black] (3.5,2) circle (1.5pt);
-%\draw (3.5,2) node[anchor=west] {\Large $F_5$};
+\draw [fill=black] (3.5,2) circle (1.5pt);
+\draw (3.5,2) node[anchor=west] {\Large $F_5$};
 
 %\draw (-0.5,1.05) node[anchor=north] {\Large $a$};
 %\draw (-0.5,1.1) node[anchor=north] {\Large $2$};
@@ -76,6 +71,5 @@
 %\draw (4.15,1) node {\Large $f$}; % w -- w
 %\draw (4.15,1) node {\Large $2$}; % w -- w
 
-\draw (2.5,0) node {\Large $h$}; % w -- w
 \end{scriptsize}
 \end{tikzpicture}

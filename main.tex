@@ -297,7 +297,7 @@ Para grafos gerais, amortizado~$\O{\lg^4 n}$.
 \item \dymForestQuery($F$,$u$,$v$): retorna verdadeiro se $u$ e~$v$ estão na mesma componente conexa de~$F$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
-Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Monika Henzinger e Valerie King~\cite{HenzingerKing}.
+Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Henzinger e King.
 \end{frame}
 
 \subsection{Euler Tour Trees}
@@ -474,7 +474,7 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \item \dymGraphQuery($G$, $u$, $v$): retorna verdadeiro se $u$ e $v$ estão na mesma componente conexa de $G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
-Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Jacob Holm, Kristian de Lichtenberg e Mikkel Thorup~\cite{poly_log}.
+Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Holm, de Lichtenberg e Thorup.
 
 \end{frame}
 
@@ -639,7 +639,8 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \begin{block}{}
 \begin{itemize}
 \item Implementamos HDT em Python3;
-\item O código está livremente disponível
+\item O código dessa implementação está livremente disponível;
+\item O código \LaTeX do dissertão também está disponível.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -753,7 +754,7 @@ D(F_3)&=\langle (f^\star, F_0)\rangle
 \end{exampleblock}
 
 \begin{exampleblock}{Árvores dinâmicas planas}
-Apresentaremos a solução proposta por David Eppstein, Giuseppe Italiano, Roberto Tamassia, Robert Tarjan, Jeffery Westbrook e Moti Yung para esse problema.
+Apresentaremos a solução proposta por Eppstein, Italiano, Tamassia, Tarjan, Westbrook e Yung para esse problema.
 O nome da estrutura de dados introduzida por esses autores é \textit{edge-ordered dynamic tree} que traduzimos para \defi{árvores dinâmicas planas}.
 \end{exampleblock}
 
@@ -887,11 +888,32 @@ Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 }
 \end{frame}
 \begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
+\begin{minipage}[H]{0.3\textwidth}
+\begin{tabular}{| c | c |} 
+ \hline
+ aresta & peso\\
+ \hline
+ $a_i$ & 2 \\ 
+ \hline
+$b_i$ & 7 \\
+ \hline
+$c_i$ & 3 \\
+ \hline
+$d_i$ & 1 \\
+ \hline
+$f_i$ & 2 \\
+ \hline
+$g_i$ & 4 \\
+ \hline
+\end{tabular}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
 \begin{figure}[!h]
 \scalebox{1.045}{
 \input{fig/MSF-antes-mudança-peso}
 }
 \end{figure}
+\end{minipage}
 \end{frame}
 
 \begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
@@ -948,87 +970,144 @@ Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Remoção de aresta}
-\begin{figure}[h!]
-\input{fig/MSF-remove-aresta-ex-1}
+\begin{frame}{Remoção de ponte}
+\begin{figure}
+\input{fig/MSF-ordem-ciclica-ponte}
 \end{figure}
 \end{frame}
-\begin{frame}{Remoção de aresta}
+
+\begin{frame}{Remoção de ponte - \MSFdelEdge($G$, $g$)}
+\begin{figure}
+\input{fig/MSF-remove-sem-e1}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Remoção de não ponte}
+\begin{minipage}{.45\textwidth}
+\begin{figure}[h!]
+\scalebox{.85}{
+\input{fig/MSF-ordem-ciclica-nao-ponte}
+}
+\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{.42\textwidth}
+\begin{figure}[h!]
+\scalebox{.85}{
+\input{fig/MSF-ordem-ciclica-nao-ponte-depois}
+}
+\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
+\begin{figure}[H]
+\scalebox{1.25}{
+\input{fig/MSF-remove-aresta-ex-1}
+}
+\end{figure}
+\end{frame}
+\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
 \begin{figure}
 \input{fig/MSF-remove-aresta-ex-2}
 \end{figure}
 \end{frame}
-\begin{frame}{Remoção de aresta}
+
+\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
 \begin{figure}
 \input{fig/MSF-remove-aresta-ex-3}
 \end{figure}
 \end{frame}
 
 
+\begin{frame}{Dois casos de adição de aresta}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+\scalebox{0.7}{
+\input{fig/MSF-antes-adiciona-ponte}
+}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+\scalebox{0.7}{
+\input{fig/MSF-adiciona-ponte.tex}
+}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+\scalebox{0.7}{
+\input{fig/MSF-antes-adiciona-nao-ponte.tex}
+}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+\scalebox{0.7}{
+\input{fig/MSF-adiciona-nao-ponte}
+}
+\end{figure}
+\end{minipage}
+\end{frame}
 
 
-\begin{frame}{Adição de aresta}
+\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
 \begin{figure}
 \scalebox{1}{
 \input{fig/MSF-adiciona-ponte-1}
 }
-\caption{ADPs antes da adição de~$h$.}
-\label{fig:MSF-adiciona-ponte-1}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Adição de aresta}
+\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
 \begin{figure}[htb]
 \scalebox{1}{
 \input{fig/MSF-adiciona-ponte-2}
 	}
-\caption{ADPs após adição da óctupla de~$h$.}
-\label{fig:MSF-adiciona-ponte-2}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Adição de aresta}
+\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
 \begin{figure}[htb]
 \scalebox{1}{
 \input{fig/MSF-adiciona-ponte-3}
 }
-\caption{ADPs obtidas por \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$).}
-\label{fig:MSF-adiciona-ponte-3}
 \end{figure}
 \end{frame}
 
+\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+\begin{figure}[htb]
+\scalebox{1}{
+\input{fig/MSF-basico-4}
+}
+\end{figure}
+\end{frame}
 
-\begin{frame}{Adição de aresta}
+\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
 \begin{figure}[htb]
 \scalebox{.9}{
 \input{fig/MSF-adiciona-nao-ponte-1}
 }
-\caption{ADPs após adição da óctupla de~$h$.}
 \label{fig:MSF-adiciona-nao-ponte-1}
 \end{figure}
 \end{frame}
 
 
-\begin{frame}{Adição de aresta}
+\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
 \begin{figure}
 \scalebox{.95}{
 \input{fig/MSF-adiciona-nao-ponte-2}
 }
-\caption{ADPs após o corte da face exterior.}
-\label{fig:MSF-adiciona-nao-ponte-2}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Adição de aresta}
-\end{frame}
 
 
 
 
 
-
-
-\section{O limitante inferior de~$\Omega(\lg n)$}
+\section[$\Omega(\lg n)$]{O limitante inferior de~$\Omega(\lg n)$}
 
 \begin{frame}{O limitante inferior de~$\Omega(\lg n)$}
 Mihai Patrascu e Erik D. Demaine provaram o seguinte limitante inferior:
@@ -1042,6 +1121,7 @@ Esse limitante é válido mesmo para implementações aleatorizadas e/ou amortiz
 \end{frame}
 
 \section{Bibliografia}
+\nocite{*}
 \begin{frame}[allowframebreaks]
 \frametitle{Bibliografia}
 \bibliographystyle{plain}
