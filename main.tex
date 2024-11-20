@@ -889,7 +889,7 @@ Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 \begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
 \begin{figure}[!h]
 \scalebox{1.045}{
-\input{fig/MSF-basico-4}
+\input{fig/MSF-antes-mudança-peso}
 }
 \end{figure}
 \end{frame}
@@ -924,67 +924,113 @@ Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 
 
 
-\begin{frame}{Remoção de aresta}
-\end{frame}
 
 
-\begin{frame}{Remoção de aresta}
+\begin{frame}{Dois casos de remoção de aresta}
 \begin{figure}[htb]
 \scalebox{0.7}{
 \input{fig/MSF-basico-1.tex}
 }
 \end{figure}
-\end{frame}
-
-\begin{frame}{Remoção de aresta}
+\begin{minipage}[H]{0.4\textwidth}
 \begin{figure}[htb]
 \scalebox{0.7}{
 \input{fig/MSF-remove-ponte.tex}
 }
 \end{figure}
-\end{frame}
-
-\begin{frame}{Remoção de aresta}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
 \begin{figure}[htb]
 \scalebox{0.7}{
 \input{fig/MSF-remove-nao-ponte}
 }
 \end{figure}
+\end{minipage}
 \end{frame}
 
 \begin{frame}{Remoção de aresta}
+\begin{figure}[h!]
+\input{fig/MSF-remove-aresta-ex-1}
+\end{figure}
 \end{frame}
 \begin{frame}{Remoção de aresta}
+\begin{figure}
+\input{fig/MSF-remove-aresta-ex-2}
+\end{figure}
 \end{frame}
 \begin{frame}{Remoção de aresta}
+\begin{figure}
+\input{fig/MSF-remove-aresta-ex-3}
+\end{figure}
 \end{frame}
 
 
 
 
+\begin{frame}{Adição de aresta}
+\begin{figure}
+\scalebox{1}{
+\input{fig/MSF-adiciona-ponte-1}
+}
+\caption{ADPs antes da adição de~$h$.}
+\label{fig:MSF-adiciona-ponte-1}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Adição de aresta}
+\begin{figure}[htb]
+\scalebox{1}{
+\input{fig/MSF-adiciona-ponte-2}
+	}
+\caption{ADPs após adição da óctupla de~$h$.}
+\label{fig:MSF-adiciona-ponte-2}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Adição de aresta}
+\begin{figure}[htb]
+\scalebox{1}{
+\input{fig/MSF-adiciona-ponte-3}
+}
+\caption{ADPs obtidas por \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$).}
+\label{fig:MSF-adiciona-ponte-3}
+\end{figure}
+\end{frame}
 
 
+\begin{frame}{Adição de aresta}
+\begin{figure}[htb]
+\scalebox{.9}{
+\input{fig/MSF-adiciona-nao-ponte-1}
+}
+\caption{ADPs após adição da óctupla de~$h$.}
+\label{fig:MSF-adiciona-nao-ponte-1}
+\end{figure}
+\end{frame}
 
 
-
-
-
-
-
-
-
-
-
+\begin{frame}{Adição de aresta}
+\begin{figure}
+\scalebox{.95}{
+\input{fig/MSF-adiciona-nao-ponte-2}
+}
+\caption{ADPs após o corte da face exterior.}
+\label{fig:MSF-adiciona-nao-ponte-2}
+\end{figure}
+\end{frame}
 
 \begin{frame}{Adição de aresta}
 \end{frame}
 
 
 
-\section{O limitante inferior de~$\Omega(\lg n)$}
-\subsection{Verificação de soma parcial em~$S_k$}
 
-\begin{frame}{Verificação de soma parcial em~$S_k$}
+
+
+
+\section{O limitante inferior de~$\Omega(\lg n)$}
+
+\begin{frame}{O limitante inferior de~$\Omega(\lg n)$}
 Mihai Patrascu e Erik D. Demaine provaram o seguinte limitante inferior:
 \begin{teorema}
 Seja $t_m$ o consumo de tempo de \dymGraphAddEdge{} ou \dymGraphDelEdge{} e~$t_c$ o consumo de tempo de \dymGraphQuery{}, então
@@ -994,53 +1040,6 @@ $$
 Esse limitante é válido mesmo para implementações aleatorizadas e/ou amortizadas de \dymGraphAddEdge{}, \dymGraphDelEdge{} e \dymGraphQuery{} e mesmo restringindo a classe de grafos do problema para caminhos.
 \end{teorema}
 \end{frame}
-
-
-\begin{frame}{Grafo dual}
-\begin{figure}[htb]
-\centering
-	\scalebox{.8}{
-\input{fig/LIM-exemplo-comp}
-	}
-\caption{Exemplo de uma composição de permutações adotando $p=4$. Temos~$\varphi = \phi_4\circ \phi_3\circ \phi_2\circ \phi_1$.}
-\label{fig:LIM-exemplo-comp}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Problema da verificação de soma parcial em $S_{k}$}
-\begin{exampleblock}{Problema da verificação de soma parcial em $S_{k}$}
-O \defi{problema da verificação de soma parcial em $S_{k}$ (VSP$S_k$)} visa manter uma sequência de~$p$ permutações ${\phi=(\phi_1, \phi_2, \ldots, \phi_p)}$ de forma a implementar eficientemente a seguinte biblioteca:
-\begin{itemize}
-\item \VPSPupdate($\phi$, $i$, $\varphi$): a $i$-ésima coordenada de $\phi$ passa a ser a permutação~$\varphi$ ; e
-\item \VPSPverify($\phi$, $i$, $\varphi$): retorna verdadeiro se~$\phi_i\circ \cdots\circ \phi_1 = \varphi$ e falso, caso contrário.
-\end{itemize}
-\end{exampleblock}
-\end{frame}
-
-\begin{frame}{Limitante inferior para o problema VSP$S_k$}
-Mihai Patrascu e Erik D. Demaine~\cite{lowerBoundPatrascu} provaram o seguinte resultado:
-
-\begin{teorema}
-Os consumos de tempo $t_u$ e $t_q$ das rotinas \VPSPupdate{} e~\VPSPverify, respectivamente, implementadas com qualquer estrutura de dados sob o modelo \textit{cell-probe} para solucionar VSP$S_k$ estão relacionados e limitados por
-$$
-\min\{t_u,t_q\}\lg \left( \frac{\max\{t_u,t_q\}}{\min\{t_u,t_q\}}\right) = \Omega\left(\frac{\delta}{b}\lg p\right),
-$$
-onde cada célula possui $b$ bits e são necessários $\delta$ bits para representar cada parâmetro da rotina.  Esse limitante continua válido mesmo se a estrutura de dados utilizar amortização, não determinismo, aleatorização Las Vegas ou Monte Carlo com erro probabilístico~$p^{-\Omega(1)}$.
-\end{teorema}
-\end{frame}
-
-\subsection[Redução do VSP$S_k$ para conexidade em grafos dinâmicos]{Redução do problema VSP$S_k$ para conexidade em grafos dinâmicos}
-
-\begin{frame}{Redução de VSP$S_k$ a conexidade de grafos dinâmicos}
-\begin{figure}[htb]
-\centering
-\input{fig/LIM-convertido}
-\label{fig:LIM-convertido}
-\end{figure}
-\end{frame}
-
-
-
 
 \section{Bibliografia}
 \begin{frame}[allowframebreaks]
