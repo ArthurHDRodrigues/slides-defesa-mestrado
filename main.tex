@@ -348,37 +348,59 @@ Para solucionar esse problema, vamos apresentar a estrutura de dados proposta po
 \end{frame}
 
 
+%\begin{frame}{Biblioteca de Euler Tour Trees}
+%\begin{exampleblock}{Biblioteca de Euler Tour Trees}
+%\begin{itemize}
+%\item  \treapCreate($u$, $v$): retorna uma ABB com um único nó com valor uv;
+%\item \treapJoin($T$, $R$): junta as ABBs $T$ e $R$ concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
+%\item \treapSplit($\node$): corta a ABB que contém um nó~$\node$ em três ABBs. A primeira ABB contém todos os nós com chave estritamente menor do que a chave de~$\node$, a segunda contém somente~$\node$ e a última contém todos os nós com chave estritamente maior do que a chave de~$\node$. Essa rotina retorna as raízes dessas três ABBs; e
+%\item \treapGetRoot($\node$): retorna a raiz da ABB que contém $\node$;
+%\end{itemize}
+%\end{exampleblock}
+%\end{frame}
+
+
 \begin{frame}{Biblioteca de Euler Tour Trees}
-\begin{exampleblock}{Biblioteca de Euler Tour Trees}
-\begin{itemize}
-\item  \treapCreate($u$, $v$): retorna uma ABB com um único nó com valor uv;
-\item \treapJoin($T$, $R$): junta as ABBs $T$ e $R$ concatenando as sequências Eulerianas armazenada nelas e retorna a raiz da árvore resultante.
-\item \treapSplit($\node$): corta a ABB que contém um nó~$\node$ em três ABBs. A primeira ABB contém todos os nós com chave estritamente menor do que a chave de~$\node$, a segunda contém somente~$\node$ e a última contém todos os nós com chave estritamente maior do que a chave de~$\node$. Essa rotina retorna as raízes dessas três ABBs; e
-\item \treapGetRoot($\node$): retorna a raiz da ABB que contém $\node$;
-\end{itemize}
-\end{exampleblock}
-\boxpurple{\centering  \treapCreate{}:~$\O{1}$.\\ As demais operações :~$\O{\lg n}$.}
+\begin{minipage}[H]{0.4\textwidth}
+\input{fig/ABB-novono}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
+\input{fig/ABB-raiz}
+\end{minipage}
+\boxpurple{\centering  \treapCreate{}:~$\O{1}$.\\
+	\treapGetRoot($\node$):~$\O{\lg n}$.}
 \end{frame}
 
-\begin{frame}{Tabela de símbolos}
-\boxblue{
-\centering
-Associa $(u,v) \rightarrow uv$.
-}
-\begin{exampleblock}{Biblioteca de tabela de símbolos}
-\begin{itemize}
-    \item $F \gets \hashCreate(n)$: cria e retorna um dicionário~$F$ para uma floresta dinâmica com~$n$ vértices;
-    \item $F[u,v] \gets uv$: insere o nó que contém $uv$, com chave $(u,v)$ e valor associado~$uv$ na tabela~$F$.
-    Se o par~$(u,v)$ já estiver presente no dicionário, então seu valor associado é substituído por~$uv$;
-    \item $F[u,v] \gets \Nil{}$: remove o nó associado a~$(u,v)$ e seu valor associado do dicionário~$F$;
-    \item $\var{} \gets F[u,v]$: atribui o valor associado à chave~$(u,v)$ à variável~$\var$;
-	Caso a chave~$(u,v)$ não esteja presente em~$F$, atribui~$\Nil$ a~$\var{} $.
-\end{itemize}
-\end{exampleblock}
-\boxpurple{
-\centering
-Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
-}
+
+\begin{frame}{Biblioteca de Euler Tour Trees}
+
+\begin{minipage}[H]{0.5\textwidth}
+\begin{figure}[H]
+\input{fig/ABB-piramide}
+\end{figure}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{figure}[H]
+\input{fig/ABB-corta-sequencia}
+\end{figure}
+\boxpurple{\centering  \treapSplit{}:~$\O{\lg n}$.}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Biblioteca de Euler Tour Trees}
+
+\begin{minipage}[H]{0.5\textwidth}
+\begin{figure}[H]
+\input{fig/ABB-junta-piramides}
+\end{figure}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{figure}[H]
+\input{fig/ABB-junta-sequencias}
+\end{figure}
+\boxpurple{\centering  \treapJoin{}:~$\O{\lg n}$.}
+\end{minipage}
 \end{frame}
 
 \begin{frame}{Implementação da interface de floresta dinâmica}
@@ -410,6 +432,7 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \end{frame}
 
 \begin{frame}{Implementação da interface de floresta dinâmica}
+\begin{minipage}[H]{0.4\textwidth}
 \begin{algorithm}[H]
 \caption{\ETmovetofront($F$,$u$)}
 \label{Algo:ETmovetofront}
@@ -419,6 +442,23 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \State \Return \treapJoin(\varname{uu}, $B$, $A$)\label{Algo:ETmovetofront:3}
 \end{algorithmic}
 \end{algorithm}
+\boxpurple{
+\centering
+\ETmovetofront{}  : $\O{\lg n}$
+}
+\end{minipage}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{figure}[H]
+\input{fig/ABB-moveToFront}
+\end{figure}
+\end{minipage}
+
+
+\end{frame}
+
+
+\begin{frame}{Implementação da interface de floresta dinâmica}
+\begin{minipage}{0.4\textwidth}
 \begin{algorithm}[H]
 \caption{\dymForestAddEdge($F$,$u$,$v$)}
 \label{Algo:dymForestAddEdge}
@@ -434,12 +474,35 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \end{algorithm}
 \boxpurple{
 \centering
-\dymForestAddEdge{}  : $\O{\lg n}$\\
-\ETmovetofront{}  : $\O{\lg n}$
+\dymForestAddEdge{}  : $\O{\lg n}$
 }
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+	\scalebox{.6}{
+\input{fig/ABB-add-sequencia}
+	}
+\end{figure}
+\end{minipage}
 \end{frame}
 
 \begin{frame}{Implementação da interface de floresta dinâmica}
+\begin{minipage}{0.45\textwidth}
+\begin{figure}[H]
+\input{fig/exemploSeqEulerColorida}
+\end{figure}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{figure}
+	\scalebox{.6}{
+\input{fig/ABB-add-sequencia}
+	}
+\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Implementação da interface de floresta dinâmica}
+\begin{minipage}{0.45\textwidth}
 \begin{algorithm}[H]
 \caption{\dymForestDelEdge($F$, $u$, $v$)}
 \label{Algo:dymForestDelEdge}
@@ -457,6 +520,14 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \centering
 \dymForestDelEdge{}  : $\O{\lg n}$
 }
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{figure}
+	\scalebox{.6}{
+\input{fig/ABB-corta-pseudocodigo}
+	}
+\end{figure}
+\end{minipage}
 \end{frame}
 
 
@@ -474,7 +545,6 @@ Consumo esperado~$\O{1}$ por rotina~\cite{CLRS}.
 \item \dymGraphQuery($G$, $u$, $v$): retorna verdadeiro se $u$ e $v$ estão na mesma componente conexa de $G$ e falso, caso contrário.
 \end{itemize}
 \end{exampleblock}
-Para solucionar esse problema, vamos apresentar a estrutura de dados proposta por Holm, de Lichtenberg e Thorup.
 
 \end{frame}
 
@@ -485,20 +555,25 @@ Para solucionar esse problema, vamos apresentar a estrutura de dados proposta po
     \item um grafo~$R$ = $G-F$
 \end{itemize}
 \end{block}
+\begin{figure}[htb]
+\scalebox{.5}{
+\input{fig/exemplo-floresta-reserva.tex}
+	}
+\end{figure}
 
-\begin{exampleblock}{Lista de adjacências}
-\begin{itemize}
-    \item \graphCreate($n$): devolve a representação por listas de adjacências de um grafo com~$n$ vértices isolados.
-    \item \graphAdd($G$, $u$, $v$): adiciona $u$ na lista de adjacências de $v$ em $G$ e vice-versa.
-    \item \graphDel($G$, $u$, $v$): remove $u$ da lista de adjacências de $v$ em $G$ e vice-versa.
-\end{itemize}
-\end{exampleblock}
-\boxpurple{
-\centering
-~~~~~~\graphCreate{} : $\O{n}$\\
-\graphAdd{}  : $\O{1}$\\
-\graphDel{}  : $\O{1}$\\
-}
+%\begin{exampleblock}{Lista de adjacências}
+%\begin{itemize}
+%    \item \graphCreate($n$): devolve a representação por listas de adjacências de um grafo com~$n$ vértices isolados.
+%    \item \graphAdd($G$, $u$, $v$): adiciona $u$ na lista de adjacências de $v$ em $G$ e vice-versa.
+%    \item \graphDel($G$, $u$, $v$): remove $u$ da lista de adjacências de $v$ em $G$ e vice-versa.
+%\end{itemize}
+%\end{exampleblock}
+%\boxpurple{
+%\centering
+%~~~~~~\graphCreate{} : $\O{n}$\\
+%\graphAdd{}  : $\O{1}$\\
+%\graphDel{}  : $\O{1}$\\
+%}
 \end{frame}
 
 
@@ -620,7 +695,7 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \EndFor
 \For {$xy$ em $G$.$R_i$ com $x$ em $T_u$}\label{Algo:dymGraphReplace:linha:achaSub}\Comment{Procura substituta para $uv$}
 \State \graphDel($G$.$R_i$, $x$, $y$)
-	\If {\textbf{não} \dymForestQuery($F_{\leqslant i}$, $x$, $y$}\label{Algo:dymGraphReplace:linhayinTv}
+	\If {\textbf{não} \dymForestQuery($F_{\leqslant i}$, $x$, $y$)}\label{Algo:dymGraphReplace:linhayinTv}
 \For {$j \gets i$ até $\lceil \lg n \rceil$}\label{Algo:dymGraphReplace:linha:inseresub}
 \State \dymForestAddEdge($G$.$F_{\leqslant j}$, $x$, $y$)
 \EndFor
@@ -640,7 +715,7 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \begin{itemize}
 \item Implementamos HDT em Python3;
 \item O código dessa implementação está livremente disponível;
-\item O código \LaTeX do dissertão também está disponível.
+\item O código em \LaTeX{} da dissertação também está disponível.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -648,7 +723,7 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 % --------------------------------------------------------------------- %
 % Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos %
 % --------------------------------------------------------------------- %
-\section[MSF]{Floresta maximal de peso mínimo em grafos planos ponderados dinâmicos}
+\section[MSF]{Floresta maximal de peso mínimo\\ em grafos planos ponderados dinâmicos}
 
 \subsection{Definição do problema}
 \begin{frame}{Grafo plano}
@@ -753,10 +828,10 @@ D(F_3)&=\langle (f^\star, F_0)\rangle
 \end{itemize}
 \end{exampleblock}
 
-\begin{exampleblock}{Árvores dinâmicas planas}
-Apresentaremos a solução proposta por Eppstein, Italiano, Tamassia, Tarjan, Westbrook e Yung para esse problema.
-O nome da estrutura de dados introduzida por esses autores é \textit{edge-ordered dynamic tree} que traduzimos para \defi{árvores dinâmicas planas}.
-\end{exampleblock}
+%\begin{exampleblock}{Árvores dinâmicas planas}
+%Apresentaremos a solução proposta por Eppstein, Italiano, Tamassia, Tarjan, Westbrook e Yung para esse problema.
+%O nome da estrutura de dados introduzida por esses autores é \textit{edge-ordered dynamic tree} que traduzimos para \defi{árvores dinâmicas planas}.
+%\end{exampleblock}
 
 \end{frame}
 
@@ -825,18 +900,19 @@ Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ se
 \label{fig:MSF-figura-4}
 \end{figure}
 \end{frame}
-\begin{frame}{Exemplo de ADP}
-\begin{block}{Óctupla de $e$}
-Há $8$ nós de link cut tree para cada aresta $e$ de~$G$.
-Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
-\end{block}
-\begin{figure}[htb]
-\scalebox{1}{
-\centering
-\input{fig/MSF-octo}
-}
-\end{figure}
-\end{frame}
+
+%\begin{frame}{Exemplo de ADP}
+%\begin{block}{Óctupla de $e$}
+%Há $8$ nós de link cut tree para cada aresta $e$ de~$G$.
+%Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
+%\end{block}
+%\begin{figure}[htb]
+%\scalebox{1}{
+%\centering
+%\input{fig/MSF-octo}
+%}
+%\end{figure}
+%\end{frame}
 
 %\subsection{Árvores dinâmicas planas}
 %\begin{frame}{Árvores Dinâmicas Planas}
@@ -861,7 +937,7 @@ Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 %\end{frame}
 
 \subsection{Resolvendo MSF com ADPs}
-\begin{frame}{Criação de grafo plano ponderado dinâmico e obtenção de peso}
+\begin{frame}{Criação de grafo plano ponderado dinâmico e consulta de peso}
 \begin{algorithm}[H]
 \caption{\MSFCreate($n$)}
 \label{Algo:MSFCreate}
@@ -887,7 +963,7 @@ Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
 	\MSFupdate:~$\O{\lg m}$.
 }
 \end{frame}
-\begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
 \begin{minipage}[H]{0.3\textwidth}
 \begin{tabular}{| c | c |} 
  \hline
@@ -916,7 +992,7 @@ $g_i$ & 4 \\
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
 \begin{figure}[!h]
 \scalebox{1.4}{
 \input{fig/MSF-basico-5}
@@ -925,7 +1001,7 @@ $g_i$ & 4 \\
 \end{frame}
 
 
-\begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
 \begin{figure}[!h]
 \scalebox{1}{
 \input{fig/MSF-basico-6}
@@ -935,7 +1011,7 @@ $g_i$ & 4 \\
 
 
 
-\begin{frame}{Execução de Mudança de peso \MSFupdate($G$, $a$, $5$)}
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
 \begin{figure}[htb]
 \scalebox{1}{
 \centering
@@ -976,11 +1052,11 @@ $g_i$ & 4 \\
 \end{figure}
 \end{frame}
 
-\begin{frame}{Remoção de ponte - \MSFdelEdge($G$, $g$)}
-\begin{figure}
-\input{fig/MSF-remove-sem-e1}
-\end{figure}
-\end{frame}
+%\begin{frame}{Remoção de ponte - \MSFdelEdge($G$, $g$)}
+%\begin{figure}
+%\input{fig/MSF-remove-sem-e1}
+%\end{figure}
+%\end{frame}
 
 \begin{frame}{Remoção de não ponte}
 \begin{minipage}{.45\textwidth}
@@ -1000,24 +1076,24 @@ $g_i$ & 4 \\
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
-\begin{figure}[H]
-\scalebox{1.25}{
-\input{fig/MSF-remove-aresta-ex-1}
-}
-\end{figure}
-\end{frame}
-\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
-\begin{figure}
-\input{fig/MSF-remove-aresta-ex-2}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
-\begin{figure}
-\input{fig/MSF-remove-aresta-ex-3}
-\end{figure}
-\end{frame}
+%\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
+%\begin{figure}[H]
+%\scalebox{1.25}{
+%\input{fig/MSF-remove-aresta-ex-1}
+%}
+%\end{figure}
+%\end{frame}
+%\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
+%\begin{figure}
+%\input{fig/MSF-remove-aresta-ex-2}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Remoção de não ponte - \MSFdelEdge($G$, $b$)}
+%\begin{figure}
+%\input{fig/MSF-remove-aresta-ex-3}
+%\end{figure}
+%\end{frame}
 
 
 \begin{frame}{Dois casos de adição de aresta}
@@ -1052,55 +1128,55 @@ $g_i$ & 4 \\
 \end{frame}
 
 
-\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
-\begin{figure}
-\scalebox{1}{
-\input{fig/MSF-adiciona-ponte-1}
-}
-\end{figure}
-\end{frame}
+%\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+%\begin{figure}
+%\scalebox{1}{
+%\input{fig/MSF-adiciona-ponte-1}
+%}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+%\begin{figure}[htb]
+%\scalebox{1}{
+%\input{fig/MSF-adiciona-ponte-2}
+%	}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+%\begin{figure}[htb]
+%\scalebox{1}{
+%\input{fig/MSF-adiciona-ponte-3}
+%}
+%\end{figure}
+%\end{frame}
+%
+%\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+%\begin{figure}[htb]
+%\scalebox{1}{
+%\input{fig/MSF-basico-4}
+%}
+%\end{figure}
+%\end{frame}
 
-\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
-\begin{figure}[htb]
-\scalebox{1}{
-\input{fig/MSF-adiciona-ponte-2}
-	}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
-\begin{figure}[htb]
-\scalebox{1}{
-\input{fig/MSF-adiciona-ponte-3}
-}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
-\begin{figure}[htb]
-\scalebox{1}{
-\input{fig/MSF-basico-4}
-}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
-\begin{figure}[htb]
-\scalebox{.9}{
-\input{fig/MSF-adiciona-nao-ponte-1}
-}
-\label{fig:MSF-adiciona-nao-ponte-1}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
-\begin{figure}
-\scalebox{.95}{
-\input{fig/MSF-adiciona-nao-ponte-2}
-}
-\end{figure}
-\end{frame}
+%\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+%\begin{figure}[htb]
+%\scalebox{.9}{
+%\input{fig/MSF-adiciona-nao-ponte-1}
+%}
+%\label{fig:MSF-adiciona-nao-ponte-1}
+%\end{figure}
+%\end{frame}
+%
+%
+%\begin{frame}{Adição de aresta - \MSFaddEdge($G$, $h$, $v$, $a$, $y$, $f$, $7$)}
+%\begin{figure}
+%\scalebox{.95}{
+%\input{fig/MSF-adiciona-nao-ponte-2}
+%}
+%\end{figure}
+%\end{frame}
 
 
 
@@ -1120,12 +1196,12 @@ Esse limitante é válido mesmo para implementações aleatorizadas e/ou amortiz
 \end{teorema}
 \end{frame}
 
-\section{Bibliografia}
-\nocite{*}
-\begin{frame}[allowframebreaks]
-\frametitle{Bibliografia}
-\bibliographystyle{plain}
-    \bibliography{bib.bib}
-\end{frame}
+%\section{Bibliografia}
+%\nocite{*}
+%\begin{frame}[allowframebreaks]
+%\frametitle{Bibliografia}
+%\bibliographystyle{plain}
+%    \bibliography{bib.bib}
+%\end{frame}
 
 \end{document}
