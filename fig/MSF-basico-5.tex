@@ -1,97 +1,76 @@
 \begin{tikzpicture}[line cap=round,line join=round,x=1cm,y=1cm]
-\clip(-3,1.5) rectangle (4.5,5.4);
+\clip(-2,-1) rectangle (9,6);
+
+\draw [line width=2pt,color=red] (2,5) to[out=-45,in=45,looseness=1] (2,2); % F0 -- F1
+\draw [line width=.5pt] (2,5) to[out=-45,in=45,looseness=1] (2,2); % F0 -- F1
+
+\draw [line width=2pt,color=red] (2,2) to (0,2); % F1 -- F2
+\draw [line width=.5pt] (2,2) to (0,2); % F1 -- F2
+
 
 \begin{scriptsize}
 
+% Aresta a
+\draw [line width=2pt,color=red] (0,2) to  (-.6,2); 
+\draw [line width=.5pt] (0,2) to  (-.6,2); 
+\draw [line width=2pt,color=red] (-1.1,2) to[out=135,in=180,looseness=1.5]  (2,5);   % v -- u
+\draw [line width=.5pt] (-1.1,2) to[out=135,in=180,looseness=1.5]  (2,5);   % v -- u
+\draw (-.6,2) node[anchor=south] {{\normalsize $a_1$}};
+\draw [fill=black] (-.6,2) circle (2pt);
+\draw (-.6,1.9) node[anchor=north] {{\normalsize $5$}};
+
+\draw (-1.05,2.03) node[anchor=south] {{\normalsize $a_3$}};
+\draw [fill=black] (-1.1,2) circle (2pt);
+\draw (-1.05,1.9) node[anchor=north] {{\normalsize $5$}};
 
 
 
-%
-% Node F_0
-%
-\draw (3,5.2) node {\normalsize $\hat F_0$};
-\draw [line width=1pt,color=red] (2.7,4.7) to  (3.8,4.7); 
-\draw [line width=1pt,color=red] (3.8,4.7) to  (4,5); 
-\draw [line width=1pt,color=red] (4,5) to  (2.5,5); 
+% Aresta b
 
-\draw [line width=1pt,color=red] (2.5,5) to[in=180,out=180,looseness=2]  (-1.2,2); 
+\draw (.6,2) node[anchor=south] {{\normalsize $b_1$}};
+\draw [fill=black] (.5,2) circle (2pt);
+\draw (.5,1.9) node[anchor=north] {{\normalsize $7$}};
 
-%^c
-\draw [line width=1pt,color=red] (2.6,2.6) to  (2.9,3.1);
-\draw [line width=1pt,color=red] (2.7,4.7) to  (2.9,3.1);
-
-\draw (-1.2,2.15) node {\normalsize $a_3$};
-\draw (-1.2,1.8) node {\normalsize $5$};
-\draw [fill=white] (-1.2,2)circle (1.5pt);
-\draw (2.7,3.1) node {\normalsize $c_1$};
-\draw (3.07,3.1) node {\normalsize $3$};
-\draw [fill=white] (2.9,3.1)circle (1.5pt);
+\draw (1.1,2) node[anchor=south] {{\normalsize $b_3$}};
+\draw [fill=black] (1,2) circle (2pt);
+\draw (1,1.9) node[anchor=north] {{\normalsize $7$}};
 
 
 
-\draw (2.5,5)[anchor=south] node {\normalsize $\infty$};
-\draw [fill=black] (2.5,5)circle (1.5pt);
-\draw (2.5,4.6) node {\normalsize $\infty$};
-\draw [fill=black] (2.7,4.7)circle (1.5pt);
-\draw (3.5,5)[anchor=south] node {\normalsize $\infty$};
-\draw [fill=black] (3.5,5)circle (1.5pt);
-\draw (4,5)[anchor=north west] node {\normalsize $\infty$};
-\draw [fill=black] (4,5)circle (1.5pt);
-\draw (3.8,4.7)[anchor=north] node {\normalsize $\infty$};
-\draw [fill=black] (3.8,4.7)circle (1.5pt);
-\draw (3.3,4.7)[anchor=north] node {\normalsize $\infty$};
-\draw [fill=black] (3.3,4.7)circle (1.5pt);
+% Aresta c
+
+\draw (2.4,3.3) node[anchor=north] {{\normalsize $c_1$}}; % u -- w
+\draw [fill=black] (2.6,3.1) circle (2pt);
+\draw (2.8,3.3) node[anchor=north] {{\normalsize $3$}}; % u -- w
+
+\draw (2.15,2.8) node[anchor=north] {{\normalsize $c_3$}}; % u -- w
+\draw [fill=black] (2.35,2.5) circle (2pt);
+\draw (2.55,2.7) node[anchor=north] {{\normalsize $3$}}; % u -- w
+
+
+
+% Aresta d
+\draw [line width=2pt,color=red] (2,2) to  (2.2,1.5);   
+\draw [line width=.5pt] (2,2) to  (2.2,1.5);   
 
 
 
 
-%
-% Node F_1
-%
-\draw (2.1,2) node {\normalsize $\hat F_1$};
-%node path
-\draw [line width=1pt,color=red] (2.3,2.3) to  (2.3,1.7); 
-\draw [line width=1pt,color=red] (1.7,2) to  (2.3,1.7); 
+%\draw (1.95,1.8) node[anchor=north] {{\normalsize $d_3$}}; % v -- w
+\draw [fill=black] (2.2,1.5) circle (2pt);
 
-\draw [line width=1pt,color=red] (2.6,2.6) to  (2.3,2.3); 
-\draw [line width=1pt,color=red] (1.7,2) to  (1.3,2); 
 
-% F_1 to F_2
-\draw [line width=1pt,color=red] (.8,2) to  (1.3,2); 
 
-\draw (1.8,2.13) node {\normalsize $\infty$};
-\draw [fill=black] (1.7,2)circle (1.5pt);
-\draw (2.3,1.7)[anchor=north] node {\normalsize $\infty$};
-\draw [fill=black] (2.3,1.7)circle (1.5pt);
-\draw (2.25,2.2)[anchor=west] node {\normalsize $\infty$};
-\draw [fill=black] (2.3,2.3)circle (1.5pt);
-\draw (1.3,2.16) node {\normalsize $b_3$}; %b_3
-\draw (1.3,1.8) node {\normalsize $7$}; %b_3
-\draw [fill=white] (1.3,2)circle (1.5pt);
+\draw [fill=black] (2,5) circle (2pt);
+\draw (2,5) node[anchor=south east] {{\Large $F_0$}};
+\draw (2.5,5) node[anchor=south east] {{\Large $\infty$}};
+\draw [fill=black] (2,2) circle (2pt);
+\draw (1.8,2) node[anchor=south] {{\Large $F_1$}};
+\draw [fill=black] (0,2) circle (2pt);
+\draw (1.8,1.9) node[anchor=north] {{\Large $\infty$}};
+\draw (0,2) node[anchor=south] {{\Large $F_2$}};
+\draw (0,1.9) node[anchor=north] {{\Large $\infty$}};
 
-\draw (2.4,2.65) node {\normalsize $c_3$};
-\draw (2.75,2.55) node {\normalsize $3$};
-\draw [fill=white] (2.6,2.6)circle (1.5pt);
-
-%
-% Node F_2
-%
-\draw (0,2.2) node {\normalsize $\hat F_2$};
-
-\draw [line width=1pt,color=red] (-.8,2) to  (-.3,2); 
-\draw [line width=1pt,color=red] (.8,2) to  (.3,2);   
-\draw [line width=1pt,color=red] (-.3,2) to (.3,2);   
-
-\draw [fill=black] (-.2,2) circle (1.5pt);
-\draw (-.2,1.8) node {\normalsize $\infty$};
-\draw [fill=black] (.2,2) circle (1.5pt);
-\draw (.3,1.8) node {\normalsize $\infty$};
-\draw (-.75,2.15) node {\normalsize $a_1$};
-\draw [fill=white] (-.8,2) circle (1.5pt);
-\draw (-.75,1.8) node {\normalsize $5$};
-\draw (.8,2.16) node {\normalsize $b_1$}; %b_1
-\draw (.8,1.8) node {\normalsize $7$}; %b_1
-\draw [fill=white] (.8,2) circle (1.5pt);
 
 \end{scriptsize}
 \end{tikzpicture}

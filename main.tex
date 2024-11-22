@@ -551,8 +551,8 @@ Para solucionar esse problema, vamos apresentar a estrutura de dados proposta po
 \begin{frame}{Ideia inicial}
 \begin{block}{Manteremos}
 \begin{itemize}
-    \item floresta maximal dinâmica~$F$ de~$G$; e
-    \item um grafo~$R$ = $G-F$
+    \item floresta maximal dinâmica~\TODO{$F$} de~$G$; e
+    \item um grafo~$R$ = $G-\TODO{F}$
 \end{itemize}
 \end{block}
 \begin{figure}[htb]
@@ -601,7 +601,7 @@ Para solucionar esse problema, vamos apresentar a estrutura de dados proposta po
 
 \boxpurple{
 \dymGraphQuery{} : $\O{\lg n}$\\
-\dymGraphAddEdge{}  : $\O{\lg^2 n}$ amortizado\TODO{!!}
+\dymGraphAddEdge{}  : $\O{\lg n}$
 }
 \end{frame}
 
@@ -726,12 +726,24 @@ $G.R\rightarrow G.R_{\lceil \log n \rceil}$
 \section[MSF]{Floresta maximal de peso mínimo\\ em grafos planos ponderados dinâmicos}
 
 \subsection{Definição do problema}
+
+\begin{frame}{Floresta maximal de peso mínimo}
+\begin{exampleblock}{O problema de floresta maximal de peso mínimo em grafos planos}
+\begin{itemize}
+\item \MSFCreate($n$): Cria e devolve um grafo plano ponderado~$G$ com $n$ vértices isolados.
+\item \MSFupdate($G$, $e$, $w$): Altera o peso da aresta~$e$ de~$G$ para o valor~$w$.
+\item \MSFweight($G$): Devolve o peso de uma MSF de $G$.
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+
 \begin{frame}{Grafo plano}
 \begin{block}{Grafo plano}
 Um \defi{grafo plano} é um grafo $G = (V, E)$ com as seguintes propriedades:
 \begin{enumerate}
 \item $V\subset \R^2$;
-\item Toda aresta é um arco entre dois vértices;
+		\item Toda aresta é um curva entre dois vértices;
 \item O interior de uma aresta não contém vértices nem intersecta outras arestas.
 \end{enumerate}
 \end{block}
@@ -768,7 +780,7 @@ $g$ & 4 \\
 
 
 \begin{frame}{Grafo dual}
-\begin{block}{Grafo dual}
+\begin{block}{Definição}
 Dado um grafo plano~$G$, o grafo \defi{dual} de~$G$ é o grafo $G^\star = (F,E^\star)$, onde
 \begin{itemize}
 \item $F$ é o conjunto de faces de~$G$;
@@ -784,11 +796,122 @@ Dado um grafo plano~$G$, o grafo \defi{dual} de~$G$ é o grafo $G^\star = (F,E^\
 \end{figure}
 \end{frame}
 
+
+\begin{frame}{Árvore maximal e sua dual}
+\begin{teorema}
+\label{teo:MSFdual}
+Seja~$T$ uma árvore geradora de um grafo plano conexo~$G$. O conjunto
+$$
+T^\star = \{e^\star:e\notin T\}
+$$
+é uma árvore geradora de~$G^\star$.
+Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ será de peso mínimo em~$G$ se e somente se~$T^\star$ for de peso máximo em~$G^\star$.
+\end{teorema}
+
+\begin{minipage}[H]{0.6\textwidth}
+\begin{figure}[H]
+\scalebox{1}{
+\input{fig/MSF-basico-1.tex}
+}
+\end{figure}
+\end{minipage}
+\begin{minipage}[H]{0.3\textwidth}
+\begin{figure}[H]
+\scalebox{1}{
+\input{fig/MSF-basico-2}
+}
+\end{figure}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Árvores modificadas}
+\centering
+\vspace{-.5cm}
+\scalebox{1}{
+\input{fig/MSF-basico-3}
+}
+\begin{tabular}{| c c c c c c c c c |} 
+	\hline
+vértices & $a_i$ & $b_i$ & $c_i$ & $d_i$ & $f_i$ & $g_i$ & $u$, $v$, $y$, $z$ & $F_0$, $F_1$, $F_2$, $F_3$\\
+	\hline
+	pesos  & 2 & 7 & 3 & 2 & 1 & 4 & $-\infty$ & $\infty$ \\
+	\hline
+\end{tabular} 
+\end{frame}
+
+\subsection{Resolvendo MSF com ADPs}
+\begin{frame}{Criação de grafo plano ponderado dinâmico e consulta de peso}
+\begin{algorithm}[H]
+\caption{\MSFCreate($n$)}
+\label{Algo:MSFCreate}
+\begin{algorithmic}[1]
+\State $G.H$ $\gets$ \hashCreate($n$)
+\State $G.p$ $\gets$ $0$
+\State \Return $G$
+\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{\MSFweight($G$)}
+\label{Algo:MSFweight}
+\begin{algorithmic}[1]
+\State \Return $G$.$p$
+\end{algorithmic}
+\end{algorithm}
+\boxpurple{
+	\centering
+	\MSFCreate:~$\O{n}$.\\
+	\MSFweight:~$\O{1}$.\\
+\MSFupdate:~$\O{\lg n}$.
+}
+\end{frame}
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
+\centering
+\vspace{-.5cm}
+\scalebox{1}{
+\input{fig/MSF-basico-3}
+}
+\begin{tabular}{| c c c c c c c c c |} 
+	\hline
+vértices & $a_i$ & $b_i$ & $c_i$ & $d_i$ & $f_i$ & $g_i$ & $u$, $v$, $y$, $z$ & $F_0$, $F_1$, $F_2$, $F_3$\\
+	\hline
+	pesos  & 2 & 7 & 3 & 2 & 1 & 4 & $-\infty$ & $\infty$ \\
+	\hline
+\end{tabular} 
+\end{frame}
+
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
+\vspace{-1cm}
+\begin{figure}[!h]
+\scalebox{1.7}{
+\input{fig/MSF-basico-5}
+}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
+\begin{figure}[!h]
+\scalebox{1}{
+\input{fig/MSF-basico-6}
+}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
+\begin{figure}[htb]
+\scalebox{1}{
+\centering
+\input{fig/MSF-basico-7}
+}
+\end{figure}
+\end{frame}
+
+
+
 \begin{frame}{Descrição combinatória plana}
-%\begin{block}{Definição}
-%Para cada vértice $v$ de um grafo plano~$G$, existe uma ordem cíclica~$D(v)$ das aresta incidentes a~$v$ obtida percorrendo as arestas incidentes a~$v$ em sentido anti-horário até retornar à aresta inicial do percurso.
-%Uma \defi{descrição combinatória plana} de~$G$ é uma lista de todas essas ordens cíclicas.
-%\end{block}
 \begin{minipage}[H]{0.1\textwidth}
 \begin{align*}
 D(u)&=\langle (a,v), (b,v), (c,z)\rangle\\
@@ -817,78 +940,40 @@ D(F_3)&=\langle (f^\star, F_0)\rangle
 \end{minipage}
 \end{frame}
 
+\begin{frame}{Descrição combinatória plana}
+\begin{minipage}[H]{0.4\textwidth}
+\begin{align*}
+D(u)&=\langle (a,v), (b,v), (c,z)\rangle\\
+D(v)&=\langle (a,u),\TODO{(h,y)}, (d,z), (b,u)  \rangle\\
+D(z)&=\langle (c,u), (d,v), (g,y) \rangle \\
+D(y)&=\langle (g,z), \TODO{(h, v)}, (f,y), (f,y) \rangle
+\end{align*}
+\end{minipage}
+\hspace{-1cm}
+\begin{minipage}[H]{0.2\textwidth}
+\begin{figure}[H]
+\scalebox{1}{
+\centering
+\input{fig/MSF-adiciona-nao-ponte}
+}
+\label{fig:MSF-basico-1}
+\end{figure}
+\end{minipage}
+\end{frame}
+
+
 \begin{frame}{Floresta maximal de peso mínimo}
 \begin{exampleblock}{O problema de floresta maximal de peso mínimo em grafos planos}
 \begin{itemize}
-\item \MSFCreate($n$): Cria e devolve um grafo plano ponderado~$G$ com $n$ vértices isolados.
 \item \MSFaddEdge($G$, $e$, $u$, $e_u$, $v$, $e_v$, $w$): Insere em~$G$ uma nova aresta~$e$ com peso~$w$ ligando os vértices~$u$ e~$v$. A nova aresta~$e$ é sucessora das arestas~$e_u$ e~$e_v$ nas ordens cíclicas de~$u$ e~$v$, respectivamente.
 \item \MSFdelEdge($G$, $e$): Remove a aresta~$e$ de~$G$.
-\item \MSFupdate($G$, $e$, $w$): Altera o peso da aresta~$e$ de~$G$ para o valor~$w$.
-\item \MSFweight($G$): Devolve o peso de uma MSF de $G$.
 \end{itemize}
 \end{exampleblock}
-
-%\begin{exampleblock}{Árvores dinâmicas planas}
-%Apresentaremos a solução proposta por Eppstein, Italiano, Tamassia, Tarjan, Westbrook e Yung para esse problema.
-%O nome da estrutura de dados introduzida por esses autores é \textit{edge-ordered dynamic tree} que traduzimos para \defi{árvores dinâmicas planas}.
-%\end{exampleblock}
-
-\end{frame}
-
-\begin{frame}{Árvore maximal e sua dual}
-\begin{teorema}
-\label{teo:MSFdual}
-Seja~$T$ uma árvore geradora de um grafo plano conexo~$G$. O conjunto
-$$
-T^\star = \{e^\star:e\notin T\}
-$$
-é uma árvore geradora de~$G^\star$.
-Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ será de peso mínimo em~$G$ se e somente se~$T^\star$ for de peso máximo em~$G^\star$.
-\end{teorema}
-
-\begin{figure}[H]
-\scalebox{.6}{
-\input{fig/MSF-basico-1.tex}
-}
-\scalebox{1}{
-\input{fig/MSF-basico-2}
-}
-\end{figure}
-\end{frame}
-
-
-
-\begin{frame}{Árvores modificadas}
-\begin{minipage}[H]{0.3\textwidth}
+\boxpurple{
 \centering
-\begin{tabular}{| c  c |} 
- \hline
- vértices & pesos\\
- \hline
- $\hat a$, $\hat a_1$, $\hat a_3$ & 2 \\ 
- \hline
- $\hat b$, $\hat b_0$, $\hat b_2$ & 7 \\
- \hline
- $\hat c$, $\hat c_0$, $\hat c_2$ & 3 \\
- \hline
- $\hat d$, $\hat d_0$, $\hat d_2$ & 2 \\
- \hline
- $\hat f$, $\hat f_1$, $\hat f_3$ & 1 \\
- \hline
- $\hat g$, $\hat g_1$, $\hat g_3$ & 4 \\
- \hline
- $\hat u$, $\hat v$, $\hat y$, $\hat z$ & $-\infty$ \\
- \hline
- $\hat F_0$, $\hat F_1$, $\hat F_2$, $\hat F_3$ & $\infty$ \\
- \hline
-\end{tabular}
-\end{minipage}
-\begin{minipage}[H]{0.5\textwidth}
-    \centering
-\scalebox{.7}{
-\input{fig/MSF-basico-3}
+\MSFaddEdge:~$\O{\lg n}$\\
+\MSFdelEdge:~$\O{\lg n}$.\\
 }
-\end{minipage}
 \end{frame}
 
 \begin{frame}{Exemplo de ADP}
@@ -900,129 +985,6 @@ Além disso, se~$G$ for ponderado e adotarmos $w(e^\star) = w(e)$, então~$T$ se
 \label{fig:MSF-figura-4}
 \end{figure}
 \end{frame}
-
-%\begin{frame}{Exemplo de ADP}
-%\begin{block}{Óctupla de $e$}
-%Há $8$ nós de link cut tree para cada aresta $e$ de~$G$.
-%Chamaremos esses~$8$ vértices de \defi{óctupla de $e$}.
-%\end{block}
-%\begin{figure}[htb]
-%\scalebox{1}{
-%\centering
-%\input{fig/MSF-octo}
-%}
-%\end{figure}
-%\end{frame}
-
-%\subsection{Árvores dinâmicas planas}
-%\begin{frame}{Árvores Dinâmicas Planas}
-%\begin{exampleblock}{Biblioteca ADP}
-%\begin{itemize}
-%\item \LCOMakeOcto($e$, $w$): Recebe um identificador~$e$ e um peso~$w$ e cria e retorna uma óctupla de nós de ADP associados a~$e$ com peso~$w$.
-%\item \LCODestroyOcto($H$, $e$): Recebe uma tabela de símbolos~$H$ e um identificador~$e$ e desaloca a óctupla associada a~$e$ da memória.
-%
-%\item \LCOConnected($p$, $q$): Retorna verdadeiro se os nós~$p$ e~$q$ estiverem na mesma ADP e falso caso contrário.
-%\item \LCOFindNode($p$): Recebe um nó $p$ e retorna o vértice da~$\hat F$ que contêm $p$ em sua ordem cíclica.
-%
-%\item \LCOAddCost($p$, $w$): Atribui o peso~$w$ ao vértice que contém $p$ em sua ordem cíclica.
-%\item \LCOMax($p$, $q$): Retorna o nó de peso máximo no percurso entre os nós~$p$ e~$q$.
-%Essa operação assume que $p$ e~$q$ são nós da mesma ADP.
-%\item \LCOMin($p$, $q$): Retorna o nó de peso mínimo no percurso entre os nós~$p$ e~$q$.
-%Essa operação assume que~$p$ e~$q$ são nós da mesma ADP.
-%\item \LCOCycle($p$): Permuta ciclicamente $D(u)$ de forma que o nó~$p$ seja o último na ordem.
-%Se a ordem inicial tem forma $\alpha p \beta$, então a ordem resultante é $\beta\alpha p$.
-%\item \treapPredecessor($p$): Retorna o predecessor do nó~$p$ na ordem cíclica.
-%\end{itemize}
-%\end{exampleblock}
-%\end{frame}
-
-\subsection{Resolvendo MSF com ADPs}
-\begin{frame}{Criação de grafo plano ponderado dinâmico e consulta de peso}
-\begin{algorithm}[H]
-\caption{\MSFCreate($n$)}
-\label{Algo:MSFCreate}
-\begin{algorithmic}[1]
-\State $G.H$ $\gets$ \hashCreate($n$)
-\State $G.p$ $\gets$ $0$
-\State \Return $G$
-\end{algorithmic}
-\end{algorithm}
-\begin{algorithm}[H]
-\caption{\MSFweight($G$)}
-\label{Algo:MSFweight}
-\begin{algorithmic}[1]
-\State \Return $G$.$p$
-\end{algorithmic}
-\end{algorithm}
-\boxpurple{
-	\centering
-	\MSFCreate:~$\O{n}$.\\
-	\MSFweight:~$\O{1}$.\\
-	\MSFaddEdge:~$\O{\lg m}$\\
-	\MSFdelEdge:~$\O{\lg m}$.\\
-	\MSFupdate:~$\O{\lg m}$.
-}
-\end{frame}
-\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
-\begin{minipage}[H]{0.3\textwidth}
-\begin{tabular}{| c | c |} 
- \hline
- aresta & peso\\
- \hline
- $a_i$ & 2 \\ 
- \hline
-$b_i$ & 7 \\
- \hline
-$c_i$ & 3 \\
- \hline
-$d_i$ & 1 \\
- \hline
-$f_i$ & 2 \\
- \hline
-$g_i$ & 4 \\
- \hline
-\end{tabular}
-\end{minipage}
-\begin{minipage}[H]{0.4\textwidth}
-\begin{figure}[!h]
-\scalebox{1.045}{
-\input{fig/MSF-antes-mudança-peso}
-}
-\end{figure}
-\end{minipage}
-\end{frame}
-
-\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
-\begin{figure}[!h]
-\scalebox{1.4}{
-\input{fig/MSF-basico-5}
-}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
-\begin{figure}[!h]
-\scalebox{1}{
-\input{fig/MSF-basico-6}
-}
-\end{figure}
-\end{frame}
-
-
-
-\begin{frame}{Simulação de \MSFupdate($G$, $a$, $5$)}
-\begin{figure}[htb]
-\scalebox{1}{
-\centering
-\input{fig/MSF-basico-7}
-}
-\end{figure}
-\end{frame}
-
-
-
-
 
 \begin{frame}{Dois casos de remoção de aresta}
 \begin{figure}[htb]

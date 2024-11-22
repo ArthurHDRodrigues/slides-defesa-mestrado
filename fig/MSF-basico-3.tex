@@ -37,9 +37,15 @@
 \draw [line width=.5pt] (0,2) to  (-.6,2); 
 \draw [line width=2pt,color=red] (-1.1,2) to[out=135,in=180,looseness=1.5]  (2,5);   % v -- u
 \draw [line width=.5pt] (-1.1,2) to[out=135,in=180,looseness=1.5]  (2,5);   % v -- u
-\draw [fill=black] (-.6,2) circle (2.5pt);
-\draw [fill=black] (-.83,2) circle (2.5pt);
-\draw [fill=black] (-1.1,2) circle (2.5pt);
+\draw (-1,1.7) node[anchor=north] {{\normalsize $a_0$}};
+\draw [fill=black] (-.83,1.7) circle (2pt);
+\draw (-.5,1.9) node[anchor=north] {{\normalsize $a_1$}};
+\draw [fill=black] (-.6,2) circle (2pt);
+\draw (-1.05,2.6) node[anchor=north] {{\normalsize $a_2$}};
+\draw [fill=black] (-.83,2.3) circle (2pt);
+\draw (-1.25,2.03) node[anchor=north] {{\normalsize $a_3$}};
+\draw [fill=black] (-1.1,2) circle (2pt);
+
 
 
 % Aresta b
@@ -48,9 +54,16 @@
 
 \draw [line width=2pt,color=cyan] (0,4) to[out=-45,in=90,looseness=1]  (.8,2.3);   % v -- u
 \draw [line width=.5pt] (0,4) to[out=-45,in=90,looseness=1]  (.8,2.3);   % v -- u
-\draw [fill=black] (1,2) circle (2.5pt);
-\draw [fill=black] (.8,2.3) circle (2.5pt);
-\draw [fill=black] (.8,1.7) circle (2.5pt);
+
+\draw (.6,2.7) node[anchor=north] {{\normalsize $b_0$}};
+\draw [fill=black] (.8,2.3) circle (2pt);
+\draw (.5,1.95) node[anchor=north] {{\normalsize $b_1$}};
+\draw [fill=black] (.5,2) circle (2pt);
+\draw (1.05,1.8) node[anchor=north] {{\normalsize $b_2$}};
+\draw [fill=black] (.8,1.7) circle (2pt);
+\draw (1.15,2.4) node[anchor=north] {{\normalsize $b_3$}};
+\draw [fill=black] (1,2) circle (2pt);
+
 
 
 % Aresta c
@@ -59,16 +72,21 @@
 \draw [line width=.5pt] (0,4) to  (2.2,2.9);   
 \draw [line width=2pt,color=cyan] (2.7,2.65) to  (4,2);   
 \draw [line width=.5pt] (2.7,2.65) to  (4,2);   
-\draw [fill=black] (2.2,2.9) circle (2.5pt);
-\draw [fill=black] (2.54,2.9) circle (2.5pt);
-\draw [fill=black] (2.7,2.65) circle (2.5pt);
+
+\draw (2.95,2.9) node[anchor=north] {{\normalsize $c_0$}}; % u -- w
+\draw [fill=black] (2.7,2.65) circle (2pt);
+\draw (2.4,3.3) node[anchor=north] {{\normalsize $c_1$}}; % u -- w
+\draw [fill=black] (2.6,3.1) circle (2pt);
+\draw (2,3) node[anchor=north] {{\normalsize $c_2$}}; % u -- w
+\draw [fill=black] (2.2,2.9) circle (2pt);
+\draw (2.5,2.5) node[anchor=north] {{\normalsize $c_3$}}; % u -- w
+\draw [fill=black] (2.35,2.5) circle (2pt);
+
+
 
 % Aresta d
 \draw [line width=2pt,color=red] (2,2) to  (2.2,1.5);   
 \draw [line width=.5pt] (2,2) to  (2.2,1.5);   
-
-%\draw [line width=2pt,color=red] (2.5,.9) to[out=-45,in=0,looseness=4.1]  (2,5);   
-%\draw [line width=.5pt] (2.5,.9) to[out=-45,in=0,looseness=4.1]  (2,5);   
 
 \draw [line width=2pt,color=red] (2.5,.9) to[out=-45,in=-90,looseness=1.5]  (8.5,2);   
 \draw [line width=.5pt] (2.5,.9) to[out=-45,in=-90,looseness=1.5]  (8.5,2);   
@@ -77,16 +95,32 @@
 
 
 
-\draw [fill=black] (2.35,1.175) circle (2.5pt);
-\draw [fill=black] (2.2,1.5) circle (2.5pt);
-\draw [fill=black] (2.5,.9) circle (2.5pt);
+\draw (2.05,1.175) node[anchor=east] {{\normalsize $d_0$}}; % v -- w
+\draw [fill=black] (2.1,1.05) circle (2pt);
+
+\draw (2.35,.95) node[anchor=north] {{\normalsize $d_1$}}; % v -- w
+\draw [fill=black] (2.5,.9) circle (2pt);
+
+\draw (2.6,1.7) node[anchor=north] {{\normalsize $d_2$}}; % v -- w
+\draw [fill=black] (2.65,1.275) circle (2pt);
+
+\draw (1.95,1.8) node[anchor=north] {{\normalsize $d_3$}}; % v -- w
+\draw [fill=black] (2.2,1.5) circle (2pt);
 
 % Aresta e
 \draw [line width=2pt,color=cyan] (4,2) to  (6,2);   
 \draw [line width=.5pt] (4,2) to  (6,2);   
-\draw [fill=black] (5,2.5) circle (2.5pt);
-\draw [fill=black] (5,2) circle (2.5pt);
-\draw [fill=black] (5,1.5) circle (2.5pt);
+
+\draw (4.7,2.1) node[anchor=south] {{\normalsize $g_0$}}; % v -- w
+\draw [fill=black] (4.7,2) circle (2pt);
+\draw (5,1.4) node[anchor=east] {{\normalsize $g_1$}}; % v -- w
+\draw [fill=black] (5,1.5) circle (2pt);
+\draw (5.5,2) node[anchor=north] {{\normalsize $g_2$}}; % v -- w
+\draw [fill=black] (5.3,2) circle (2pt);
+\draw (5.1,2.6) node[anchor=west] {{\normalsize $g_3$}}; % v -- w
+\draw [fill=black] (5,2.5) circle (2pt);
+
+
 
 % Aresta f
 
@@ -94,60 +128,37 @@
 \draw [line width=.5pt] (6,2) to  (6.5,2.5);   
 \draw [line width=2pt,color=cyan] (6,2) to[out=-45,in=-45,looseness=3]  (7.4,2.8);   
 \draw [line width=.5pt] (6,2) to[out=-45,in=-45,looseness=3]  (7.4,2.8);   
-\draw [fill=black] (6.9,2.75) circle (2.5pt);
-\draw [fill=black] (6.5,2.5) circle (2.5pt);
-\draw [fill=black] (7.4,2.8) circle (2.5pt);
+
+\draw (6.5,3) node[anchor=north] {{\normalsize $f_0$}}; % w -- w
+\draw [fill=black] (6.5,2.5) circle (2pt);
+\draw (7.15,2.7) node[anchor=north] {{\normalsize $f_1$}}; % w -- w
+\draw [fill=black] (6.95,2.5) circle (2pt);
+\draw (7.4,3.3) node[anchor=north] {{\normalsize $f_2$}}; % w -- w
+\draw [fill=black] (7.4,2.8) circle (2pt);
+\draw (7,3.2) node[anchor=north] {{\normalsize $f_3$}}; % w -- w
+\draw [fill=black] (6.8,3) circle (2pt);
 
 
-\draw [fill=black] (0,4) circle (2.5pt);
-\draw (0,4) node[anchor=south east] {{\Large $\hat u$}};
 
-\draw [fill=black] (0,0) circle (2.5pt);
-\draw (0,0) node[anchor=north east] {{\Large $\hat v$}};
-\draw [fill=black] (4,2) circle (2.5pt);
-\draw (4,2.1) node[anchor=south] {{\Large $\hat z$}};
-\draw [fill=black] (6,2) circle (2.5pt);
-\draw (5.9,2) node[anchor=south] {{\Large $\hat y$}};
+\draw [fill=black] (0,4) circle (2pt);
+\draw (0,4) node[anchor=south east] {{\Large $u$}};
 
-\draw [fill=black] (2,5) circle (2.5pt);
-\draw (2,5) node[anchor=south east] {{\Large $\hat F_0$}};
-\draw [fill=black] (2,2) circle (2.5pt);
-\draw (2.2,2) node[anchor=west] {{\Large $\hat F_1$}};
-\draw [fill=black] (0,2) circle (2.5pt);
-\draw (0,2.1) node[anchor=south] {{\Large $\hat F_2$}};
-\draw [fill=black] (7,2) circle (2.5pt);
-\draw (7,2) node[anchor=west] {{\Large $\hat F_3$}};
+\draw [fill=black] (0,0) circle (2pt);
+\draw (0,0) node[anchor=north east] {{\Large $v$}};
+\draw [fill=black] (4,2) circle (2pt);
+\draw (4,2.1) node[anchor=south] {{\Large $z$}};
+\draw [fill=black] (6,2) circle (2pt);
+\draw (5.9,2) node[anchor=south] {{\Large $y$}};
 
+\draw [fill=black] (2,5) circle (2pt);
+\draw (2,5) node[anchor=south east] {{\Large $F_0$}};
+\draw [fill=black] (2,2) circle (2pt);
+\draw (1.8,2) node[anchor=south] {{\Large $F_1$}};
+\draw [fill=black] (0,2) circle (2pt);
+\draw (0,2.1) node[anchor=south] {{\Large $F_2$}};
+\draw [fill=black] (7,2) circle (2pt);
+\draw (7,1.7) node[anchor=west] {{\Large $F_3$}};
 
-\draw (-1,2.5) node[anchor=north] {{\Large $\hat a$}};
-\draw (-.5,1.9) node[anchor=north] {{\Large $\hat a_1$}};
-\draw (-1.2,2.05) node[anchor=north] {{\Large $\hat a_3$}};
-%\draw (-1,2.4) node[anchor=north] {$2$}};
-
-\draw (1.1,2.55) node[anchor=north] {{\Large $\hat b$}};
-\draw (.53,2.7) node[anchor=north] {{\Large $\hat b_0$}};
-\draw (.55,2) node[anchor=north] {{\Large $\hat b_2$}};
-%\draw (1,2) node[anchor=north] {$7$}};
-
-\draw (2.4,3.35) node[anchor=north] {{\Large $\hat c$}}; % u -- w
-\draw (2.95,3.05) node[anchor=north] {{\Large $\hat c_0$}}; % u -- w
-\draw (2.1,3) node[anchor=north] {{\Large $\hat c_2$}}; % u -- w
-%\draw (2.55,2.7) node[anchor=north] {$3$}}; % u -- w
-
-\draw (2.45,1.8) node[anchor=north] {{\Large $\hat d$}}; % v -- w
-\draw (1.95,1.8) node[anchor=north] {{\Large $\hat d_3$}}; % v -- w
-\draw (2.4,.95) node[anchor=north] {{\Large $\hat d_1$}}; % v -- w
-%\draw (2.5,1.3) node[anchor=north] {$1$}}; % v -- w
-
-\draw (5.25,2.5) node[anchor=north] {{\Large $\hat g$}}; % v -- w
-\draw (5.3,2.95) node[anchor=north] {{\Large $\hat g_3$}}; % v -- w
-\draw (5.3,1.8) node[anchor=north] {{\Large $\hat g_1$}}; % v -- w
-%\draw (2.5,1.3) node[anchor=north] {$1$}}; % v -- w
-
-\draw (7.04,3.25) node[anchor=north] {{\Large $\hat f$}}; % w -- w
-\draw (7.4,3.45) node[anchor=north] {{\Large $\hat f_2$}}; % w -- w
-\draw (6.5,3.15) node[anchor=north] {{\Large $\hat f_0$}}; % w -- w
-%\draw (4.7,3) node[anchor=north] {$\2$}}; % w -- w
 
 \end{scriptsize}
 \end{tikzpicture}
